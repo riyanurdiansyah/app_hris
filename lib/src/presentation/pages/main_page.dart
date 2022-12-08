@@ -1,20 +1,18 @@
-import 'package:app_hris/src/presentation/bloc/main/main_bloc.dart';
 import 'package:app_hris/src/presentation/cubit/navbar/navbar_cubit.dart';
+import 'package:app_hris/src/presentation/pages/grafik_page.dart';
 import 'package:app_hris/utils/app_color.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class MainPage extends StatelessWidget {
   const MainPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<MainBloc>(create: (_) => MainBloc()),
-        BlocProvider<NavbarCubit>(create: (_) => NavbarCubit()),
-      ],
+    return BlocProvider<NavbarCubit>(
+      create: (context) => NavbarCubit(),
       child: Scaffold(
         backgroundColor: Colors.white,
         body: BlocBuilder<NavbarCubit, NavbarState>(
@@ -25,102 +23,71 @@ class MainPage extends StatelessWidget {
                 color: Colors.red,
               ),
               Container(
-                color: Colors.amber,
-              ),
-              Container(
                 color: Colors.blue,
+              ),
+              const GrafikPage(),
+              Container(
+                color: Colors.green,
               ),
             ],
           ),
         ),
         bottomNavigationBar: BlocBuilder<NavbarCubit, NavbarState>(
           builder: (context, state) {
-            return Card(
+            return BottomNavigationBar(
+              currentIndex: state.index,
+              iconSize: 22,
+              onTap: (i) =>
+                  BlocProvider.of<NavbarCubit>(context).getNavBarItem(i),
+              showSelectedLabels: true,
+              showUnselectedLabels: true,
+              selectedItemColor: colorPrimaryDark,
+              unselectedItemColor: colorSecondaryDark,
               elevation: 8,
-              margin: EdgeInsets.zero,
-              child: BottomNavigationBar(
-                currentIndex: state.index,
-                iconSize: 26,
-                onTap: (i) =>
-                    BlocProvider.of<NavbarCubit>(context).getNavBarItem(i),
-                showSelectedLabels: false,
-                showUnselectedLabels: false,
-                selectedItemColor: colorPrimaryDark,
-                unselectedItemColor: colorSecondaryDark,
-                type: BottomNavigationBarType.fixed,
-                backgroundColor: Colors.white,
-                items: <BottomNavigationBarItem>[
-                  BottomNavigationBarItem(
-                    label: "",
-                    icon: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const FaIcon(
-                          FontAwesomeIcons.house,
-                          size: 20,
-                        ),
-                        if (state.index == 0)
-                          const SizedBox(
-                            height: 8,
-                          ),
-                        if (state.index == 0)
-                          Container(
-                            width: 6,
-                            height: 6,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: colorPrimaryDark,
-                            ),
-                          )
-                      ],
-                    ),
-                  ),
-                  BottomNavigationBarItem(
-                    label: "",
-                    icon: Card(
-                      elevation: 5,
-                      child: Container(
-                        alignment: Alignment.center,
-                        height: 36,
-                        width: 36,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(4),
-                          color: colorPrimaryDark,
-                        ),
-                        child: const FaIcon(
-                          FontAwesomeIcons.plus,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ),
-                  BottomNavigationBarItem(
-                    label: "",
-                    icon: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const FaIcon(
-                          FontAwesomeIcons.solidUser,
-                          size: 20,
-                        ),
-                        if (state.index == 2)
-                          const SizedBox(
-                            height: 8,
-                          ),
-                        if (state.index == 2)
-                          Container(
-                            width: 6,
-                            height: 6,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: colorPrimaryDark,
-                            ),
-                          )
-                      ],
-                    ),
-                  ),
-                ],
+              selectedFontSize: 14,
+              unselectedFontSize: 12.5,
+              selectedLabelStyle: GoogleFonts.poppins(
+                height: 1.8,
+                fontWeight: FontWeight.w500,
               ),
+              unselectedLabelStyle: GoogleFonts.poppins(
+                height: 1.8,
+                fontWeight: FontWeight.w500,
+              ),
+              selectedIconTheme: const IconThemeData(
+                size: 24,
+              ),
+              unselectedIconTheme: const IconThemeData(
+                size: 20,
+              ),
+              type: BottomNavigationBarType.fixed,
+              backgroundColor: Colors.white,
+              items: const <BottomNavigationBarItem>[
+                BottomNavigationBarItem(
+                  label: "Home",
+                  icon: Icon(
+                    CupertinoIcons.house_fill,
+                  ),
+                ),
+                BottomNavigationBarItem(
+                  label: "Inbox",
+                  icon: Icon(
+                    Icons.email_rounded,
+                  ),
+                ),
+                BottomNavigationBarItem(
+                  label: "Grafik",
+                  icon: Icon(
+                    CupertinoIcons.chart_bar_square,
+                  ),
+                ),
+                BottomNavigationBarItem(
+                  label: "Akun",
+                  icon: Icon(
+                    CupertinoIcons.person_solid,
+                  ),
+                ),
+              ],
             );
           },
         ),
