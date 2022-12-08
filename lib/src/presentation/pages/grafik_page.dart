@@ -1,3 +1,4 @@
+import 'package:app_hris/src/presentation/pages/widgets/grafik_all_time.dart';
 import 'package:app_hris/src/presentation/pages/widgets/grafik_monthly.dart';
 import 'package:app_hris/src/presentation/pages/widgets/grafik_weekly.dart';
 import 'package:app_hris/utils/app_color.dart';
@@ -108,14 +109,11 @@ class GrafikPage extends StatelessWidget {
                             SizedBox(
                               height: size.height / 2.6,
                               width: double.infinity,
-                              child: TabBarView(
+                              child: const TabBarView(
                                 children: [
-                                  const GrafikWeekly(),
-                                  const GrafikMonthly(),
-                                  Container(
-                                    height: 60,
-                                    color: Colors.amber,
-                                  ),
+                                  GrafikWeekly(),
+                                  GrafikMonthly(),
+                                  GrafikAllTime(),
                                 ],
                               ),
                             )
