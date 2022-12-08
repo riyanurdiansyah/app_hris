@@ -2,6 +2,8 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../utils/app_grafik.dart';
+
 class GrafikMonthly extends StatelessWidget {
   const GrafikMonthly({super.key});
 
@@ -35,121 +37,108 @@ class GrafikMonthly extends StatelessWidget {
     );
   }
 
-  BarChartGroupData generateGroupData(
-    int x,
-    double onLate,
-    double onTime,
-  ) {
-    return BarChartGroupData(
-      x: x,
-      groupVertically: false,
-      barRods: [
-        BarChartRodData(
-          borderRadius: BorderRadius.circular(4),
-          fromY: 0,
-          toY: onLate,
-          color: Colors.red,
-          width: 20,
+  FlTitlesData get titlesData => FlTitlesData(
+        show: true,
+        bottomTitles: AxisTitles(
+          sideTitles: SideTitles(
+            showTitles: true,
+            reservedSize: 30,
+            getTitlesWidget: bottomTitles,
+          ),
         ),
-        BarChartRodData(
-          borderRadius: BorderRadius.circular(4),
-          fromY: 0,
-          toY: onTime,
-          color: Colors.blue,
-          width: 20,
+        leftTitles: AxisTitles(
+          sideTitles: SideTitles(showTitles: false),
         ),
-      ],
-    );
-  }
-
+        topTitles: AxisTitles(
+          sideTitles: SideTitles(showTitles: false),
+        ),
+        rightTitles: AxisTitles(
+          sideTitles: SideTitles(showTitles: false),
+        ),
+      );
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          AspectRatio(
-            aspectRatio: 1.8,
-            child: BarChart(
-              BarChartData(
-                alignment: BarChartAlignment.spaceBetween,
-                titlesData: FlTitlesData(
-                  leftTitles: AxisTitles(),
-                  rightTitles: AxisTitles(),
-                  topTitles: AxisTitles(),
-                  bottomTitles: AxisTitles(
-                    sideTitles: SideTitles(
-                      showTitles: true,
-                      getTitlesWidget: bottomTitles,
-                      reservedSize: 35,
-                    ),
-                  ),
-                ),
-                barTouchData: BarTouchData(enabled: false),
-                borderData: FlBorderData(show: false),
-                gridData: FlGridData(show: false),
-                barGroups: [
-                  generateGroupData(2, 2, 2),
-                  generateGroupData(4, 1, 3),
-                  generateGroupData(6, 4, 2),
-                  generateGroupData(8, 4, 2),
-                  generateGroupData(10, 4, 2),
-                  generateGroupData(12, 4, 2),
-                ],
-                maxY: 6,
+    return Column(
+      children: [
+        AspectRatio(
+          aspectRatio: 1.6,
+          child: BarChart(
+            BarChartData(
+              barTouchData: barTouchData,
+              titlesData: titlesData,
+              borderData: FlBorderData(
+                show: false,
               ),
+              barGroups: List.generate(
+                5,
+                (index) => BarChartGroupData(
+                  barsSpace: 6,
+                  x: index + 1,
+                  barRods: [
+                    BarChartRodData(
+                      toY: (2 * (index + 1)).toDouble(),
+                      gradient: onTimeGradient,
+                    ),
+                    BarChartRodData(
+                      toY: (2 * (index + 2)).toDouble(),
+                      gradient: lateGradient,
+                    )
+                  ],
+                  showingTooltipIndicators: [0, 1],
+                ),
+              ),
+              gridData: FlGridData(show: false),
+              alignment: BarChartAlignment.spaceAround,
+              maxY: 20,
             ),
           ),
-          const SizedBox(
-            height: 25,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                width: 8,
-                height: 8,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.red,
-                ),
+        ),
+        const SizedBox(
+          height: 12,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              width: 8,
+              height: 8,
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.red,
               ),
-              const SizedBox(
-                width: 5,
+            ),
+            const SizedBox(
+              width: 5,
+            ),
+            Text(
+              "Late",
+              style: GoogleFonts.poppins(
+                fontSize: 12,
               ),
-              Text(
-                "Late",
-                style: GoogleFonts.poppins(
-                  fontSize: 12,
-                ),
+            ),
+            const SizedBox(
+              width: 35,
+            ),
+            Container(
+              width: 8,
+              height: 8,
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.blue,
               ),
-              const SizedBox(
-                width: 35,
+            ),
+            const SizedBox(
+              width: 5,
+            ),
+            Text(
+              "On Time",
+              style: GoogleFonts.poppins(
+                fontSize: 12,
               ),
-              Container(
-                width: 8,
-                height: 8,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.blue,
-                ),
-              ),
-              const SizedBox(
-                width: 5,
-              ),
-              Text(
-                "On Time",
-                style: GoogleFonts.poppins(
-                  fontSize: 12,
-                ),
-              )
-            ],
-          )
-        ],
-      ),
+            )
+          ],
+        )
+      ],
     );
   }
 }

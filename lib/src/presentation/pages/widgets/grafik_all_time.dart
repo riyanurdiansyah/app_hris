@@ -112,7 +112,7 @@ class GrafikAllTime extends StatelessWidget {
     return Column(
       children: [
         AspectRatio(
-          aspectRatio: 1.8,
+          aspectRatio: 1.6,
           child: BarChart(
             BarChartData(
               barTouchData: barTouchData,
