@@ -1,4 +1,3 @@
-import 'package:app_hris/src/domain/entities/user_entity.dart';
 import 'package:app_hris/src/domain/entities/user_spf_entity.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

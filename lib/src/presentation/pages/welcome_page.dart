@@ -15,7 +15,7 @@ class WelcomePage extends StatelessWidget {
         }
 
         if (state is WelcomeUnAuthenticatedState) {
-          context.go("/signin");
+          context.go("/main");
         }
       },
       child: Scaffold(

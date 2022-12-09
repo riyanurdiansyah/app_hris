@@ -2,6 +2,7 @@ import 'package:app_hris/src/presentation/bloc/welcome/welcome_bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -31,6 +32,12 @@ class MyApp extends StatelessWidget {
       create: (_) => WelcomeBloc()..add(WelcomeCheckAuthenticationEvent()),
       child: MaterialApp.router(
         theme: ThemeData(
+          appBarTheme: const AppBarTheme(
+            systemOverlayStyle: SystemUiOverlayStyle(
+              statusBarIconBrightness: Brightness.dark,
+              statusBarBrightness: Brightness.light,
+            ),
+          ),
           textTheme: GoogleFonts.poppinsTextTheme(
             Theme.of(context).textTheme,
           ),

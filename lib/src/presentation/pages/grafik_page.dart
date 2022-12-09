@@ -3,6 +3,7 @@ import 'package:app_hris/src/presentation/pages/widgets/grafik_monthly.dart';
 import 'package:app_hris/src/presentation/pages/widgets/grafik_weekly.dart';
 import 'package:app_hris/utils/app_color.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
@@ -15,6 +16,10 @@ class GrafikPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: colorPrimaryDark,
       appBar: AppBar(
+        systemOverlayStyle: const SystemUiOverlayStyle(
+          statusBarIconBrightness: Brightness.light,
+          statusBarBrightness: Brightness.light,
+        ),
         backgroundColor: colorPrimaryDark,
         elevation: 0,
         automaticallyImplyLeading: false,
