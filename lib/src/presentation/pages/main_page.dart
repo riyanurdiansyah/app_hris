@@ -1,6 +1,7 @@
 import 'package:app_hris/src/presentation/cubit/navbar/navbar_cubit.dart';
 import 'package:app_hris/src/presentation/pages/akun_page.dart';
 import 'package:app_hris/src/presentation/pages/grafik_page.dart';
+import 'package:app_hris/src/presentation/pages/news_page.dart';
 import 'package:app_hris/utils/app_color.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +24,7 @@ class MainPage extends StatelessWidget {
               Container(
                 color: Colors.red,
               ),
+              const NewsPage(),
               Container(
                 color: Colors.blue,
               ),
@@ -66,6 +68,12 @@ class MainPage extends StatelessWidget {
                   label: "Home",
                   icon: Icon(
                     CupertinoIcons.house_fill,
+                  ),
+                ),
+                BottomNavigationBarItem(
+                  label: "News",
+                  icon: Icon(
+                    CupertinoIcons.news_solid,
                   ),
                 ),
                 BottomNavigationBarItem(

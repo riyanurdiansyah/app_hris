@@ -16,6 +16,7 @@ class GrafikPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: colorPrimaryDark,
       appBar: AppBar(
+        centerTitle: false,
         systemOverlayStyle: const SystemUiOverlayStyle(
           statusBarIconBrightness: Brightness.light,
           statusBarBrightness: Brightness.light,
@@ -116,7 +117,9 @@ class GrafikPage extends StatelessWidget {
                                   ),
                                 ),
                                 SizedBox(
-                                  height: size.height / 2.6,
+                                  height: size.height < 825
+                                      ? size.height / 3.2
+                                      : size.height / 2.6,
                                   width: double.infinity,
                                   child: const TabBarView(
                                     children: [
@@ -137,7 +140,7 @@ class GrafikPage extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(
-                            height: 20,
+                            height: 12,
                           ),
                           Row(
                             children: [
