@@ -118,7 +118,7 @@ class GrafikPage extends StatelessWidget {
                                 ),
                                 SizedBox(
                                   height: size.height < 825
-                                      ? size.height / 3.2
+                                      ? size.height / 3
                                       : size.height / 2.6,
                                   width: double.infinity,
                                   child: const TabBarView(

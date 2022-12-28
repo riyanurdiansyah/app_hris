@@ -2,6 +2,7 @@ import 'package:app_hris/src/presentation/cubit/navbar/navbar_cubit.dart';
 import 'package:app_hris/src/presentation/pages/akun_page.dart';
 import 'package:app_hris/src/presentation/pages/grafik_page.dart';
 import 'package:app_hris/src/presentation/pages/home_page.dart';
+import 'package:app_hris/src/presentation/pages/inbox_page.dart';
 import 'package:app_hris/src/presentation/pages/news_page.dart';
 import 'package:app_hris/utils/app_color.dart';
 import 'package:flutter/cupertino.dart';
@@ -21,14 +22,12 @@ class MainPage extends StatelessWidget {
         body: BlocBuilder<NavbarCubit, NavbarState>(
           builder: (context, state) => IndexedStack(
             index: state.index,
-            children: [
-              const HomePage(),
-              const NewsPage(),
-              Container(
-                color: Colors.blue,
-              ),
-              const GrafikPage(),
-              const AkunPage(),
+            children: const [
+              HomePage(),
+              NewsPage(),
+              InboxPage(),
+              GrafikPage(),
+              AkunPage(),
             ],
           ),
         ),

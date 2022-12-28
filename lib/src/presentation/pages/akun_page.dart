@@ -1,4 +1,5 @@
 import 'package:app_hris/utils/app_color.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -19,11 +20,11 @@ class AkunPage extends StatelessWidget {
                 height: 16,
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 14),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Text(
                   "Akun",
                   style: GoogleFonts.poppins(
-                    fontSize: 14.5,
+                    fontSize: 16.5,
                     color: Colors.black,
                     fontWeight: FontWeight.w600,
                   ),
@@ -33,7 +34,7 @@ class AkunPage extends StatelessWidget {
                 height: 16,
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 14),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Row(
                   children: [
                     Container(
@@ -81,7 +82,7 @@ class AkunPage extends StatelessWidget {
                 height: 35,
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 14),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Text(
                   "Info saya",
                   style: GoogleFonts.poppins(
@@ -146,7 +147,7 @@ class AkunPage extends StatelessWidget {
                 onTap: () {},
                 minLeadingWidth: 26,
                 leading: FaIcon(
-                  FontAwesomeIcons.info,
+                  CupertinoIcons.person_2_fill,
                   color: colorSecondaryDark,
                   size: 20,
                 ),
@@ -163,7 +164,7 @@ class AkunPage extends StatelessWidget {
                 onTap: () {},
                 minLeadingWidth: 26,
                 leading: FaIcon(
-                  FontAwesomeIcons.dollarSign,
+                  CupertinoIcons.money_dollar_circle_fill,
                   color: colorSecondaryDark,
                   size: 20,
                 ),
@@ -180,7 +181,7 @@ class AkunPage extends StatelessWidget {
                 height: 14,
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 14),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Text(
                   "Pengaturan",
                   style: GoogleFonts.poppins(
@@ -223,6 +224,14 @@ class AkunPage extends StatelessWidget {
                     fontWeight: FontWeight.w400,
                   ),
                 ),
+                trailing: Text(
+                  "Tidak Aktif",
+                  style: GoogleFonts.poppins(
+                    fontSize: 11,
+                    color: Colors.red,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
               ),
               ListTile(
                 onTap: () {},
@@ -257,12 +266,20 @@ class AkunPage extends StatelessWidget {
                     fontWeight: FontWeight.w400,
                   ),
                 ),
+                trailing: Text(
+                  "Indonesia",
+                  style: GoogleFonts.poppins(
+                    fontSize: 11,
+                    color: Colors.blue,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
               ),
               const SizedBox(
                 height: 14,
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 14),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Text(
                   "Lainnya",
                   style: GoogleFonts.poppins(

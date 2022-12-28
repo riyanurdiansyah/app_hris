@@ -43,12 +43,30 @@ class NewsPage extends StatelessWidget {
                   height: 80,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(4),
-                    image: const DecorationImage(
-                      image: NetworkImage(
+                    image: DecorationImage(
+                      image: const NetworkImage(
                         exampleImage,
                       ),
                       fit: BoxFit.fill,
                       filterQuality: FilterQuality.high,
+                      onError: (_, __) => Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Icon(
+                            Icons.error_outline_rounded,
+                            color: Colors.red,
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Text(
+                            "Cant load image",
+                            style: GoogleFonts.poppins(
+                              fontSize: 12,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),

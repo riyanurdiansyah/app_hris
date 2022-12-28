@@ -112,7 +112,6 @@ class HomePage extends StatelessWidget {
                 ),
                 Container(
                   width: double.infinity,
-                  height: 100,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(6),
                     color: Colors.grey.shade200,
@@ -122,6 +121,7 @@ class HomePage extends StatelessWidget {
                       Expanded(
                         flex: 2,
                         child: Container(
+                          padding: const EdgeInsets.symmetric(vertical: 6),
                           margin: const EdgeInsets.symmetric(
                               vertical: 10, horizontal: 8),
                           decoration: BoxDecoration(
@@ -138,9 +138,6 @@ class HomePage extends StatelessWidget {
                                   color: Colors.white,
                                   fontWeight: FontWeight.w600,
                                 ),
-                              ),
-                              const SizedBox(
-                                height: 6,
                               ),
                               Text(
                                 "SAB",

@@ -109,10 +109,11 @@ class GrafikWeekly extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Column(
       children: [
         AspectRatio(
-          aspectRatio: 1.6,
+          aspectRatio: size.height > 650 ? 2 : 1.6,
           child: BarChart(
             BarChartData(
               barTouchData: barTouchData,
