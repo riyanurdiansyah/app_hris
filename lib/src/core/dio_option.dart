@@ -7,5 +7,7 @@ Options dioOption({
     followRedirects: false,
     validateStatus: (status) => true,
     headers: headers ?? {},
+    responseType: ResponseType.json,
+    sendTimeout: 60000,
   );
 }

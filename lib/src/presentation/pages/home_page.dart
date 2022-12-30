@@ -9,6 +9,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: colorPrimaryDark,
       appBar: AppBar(
@@ -63,13 +64,13 @@ class HomePage extends StatelessWidget {
           Column(
             children: [
               Expanded(
-                flex: 2,
+                flex: 3,
                 child: Container(
                   color: colorPrimaryDark,
                 ),
               ),
               Expanded(
-                flex: 5,
+                flex: 9,
                 child: Container(
                   color: Colors.grey.shade100,
                 ),
