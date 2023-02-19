@@ -13,14 +13,14 @@ class WelcomePage extends StatelessWidget {
       listener: (context, state) {
         if (state is WelcomeAuthenticatedState) {
           if (state.user.role == 1) {
-            context.replace(AppRouteName.main);
+            context.goNamed(AppRouteName.home);
           } else {
-            context.replace(AppRouteName.main);
+            context.goNamed(AppRouteName.home);
           }
         }
 
         if (state is WelcomeUnAuthenticatedState) {
-          context.replace(AppRouteName.signin);
+          context.goNamed(AppRouteName.signin);
         }
       },
       child: Scaffold(

@@ -14,6 +14,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    GoRouter router = GoRouter.of(context);
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -69,7 +70,7 @@ class HomePage extends StatelessWidget {
       body: BlocListener<HomeBloc, HomeState>(
         listener: (context, state) {
           if (state is HomeUnAuthorizedState) {
-            context.replace(AppRouteName.signin);
+            context.goNamed(AppRouteName.signin);
           }
         },
         child: Stack(
@@ -79,7 +80,7 @@ class HomePage extends StatelessWidget {
               color: colorPrimaryDark,
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 14),
+              padding: const EdgeInsets.symmetric(horizontal: 10),
               child: Column(
                 children: [
                   const SizedBox(
@@ -218,7 +219,7 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(
-                    height: 35,
+                    height: 20,
                   ),
                   BlocConsumer<HomeBloc, HomeState>(
                     listener: (context, state) {},
@@ -227,7 +228,7 @@ class HomePage extends StatelessWidget {
                         return const CircularProgressIndicator();
                       }
                       final data = state.menu.data
-                          .where((e) => e.language == "in_ID")
+                          .where((e) => e.language == "in_ID" && e.status == 1)
                           .toList();
                       return SizedBox(
                         width: double.infinity,
@@ -240,9 +241,11 @@ class HomePage extends StatelessWidget {
                               data.length,
                               (index) => Padding(
                                 padding: EdgeInsets.only(
-                                    right: index + 1 == data.length ? 0 : 10),
+                                    right: index + 1 == 5 ? 0 : 6),
                                 child: InkWell(
-                                  onTap: () {},
+                                  onTap: () {
+                                    router.push(data[index].route);
+                                  },
                                   child: Card(
                                     elevation: 2,
                                     child: Container(
@@ -250,7 +253,7 @@ class HomePage extends StatelessWidget {
                                       height: 110,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(4),
-                                        color: Colors.grey.shade300,
+                                        color: Colors.grey.shade200,
                                       ),
                                       child: Column(
                                         mainAxisAlignment:
@@ -281,7 +284,7 @@ class HomePage extends StatelessWidget {
                                                 horizontal: 4),
                                             child: FittedBox(
                                               child: Text(
-                                                data[index].title,
+                                                data[index].title.toUpperCase(),
                                                 style: GoogleFonts.poppins(
                                                   fontSize: 11,
                                                   color: colorPrimaryDark,
@@ -355,24 +358,7 @@ class HomePage extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(4),
                                   color: Colors.white,
                                 ),
-                                child:
-                                    // Container(
-                                    //   margin: const EdgeInsets.symmetric(vertical: 12),
-                                    //   alignment: Alignment.topCenter,
-                                    //   width: 6,
-                                    //   height: 80,
-                                    //   decoration: BoxDecoration(
-                                    //     color: Color(Random().nextInt(0xF4F4F4F4)),
-                                    //     borderRadius: const BorderRadius.only(
-                                    //       topRight: Radius.circular(6),
-                                    //       bottomRight: Radius.circular(6),
-                                    //     ),
-                                    //   ),
-                                    // ),
-                                    // const SizedBox(
-                                    //   width: 14,
-                                    // ),
-                                    SizedBox(
+                                child: SizedBox(
                                   width: 150,
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,

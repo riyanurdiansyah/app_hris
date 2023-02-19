@@ -9,6 +9,7 @@ import 'package:app_hris/utils/app_color.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class MainPage extends StatefulWidget {
@@ -30,6 +31,7 @@ class _MainPageState extends State<MainPage> {
 
   @override
   Widget build(BuildContext context) {
+    GoRouter router = GoRouter.of(context);
     return MultiBlocProvider(
       providers: [
         BlocProvider<NavbarCubit>(
@@ -58,8 +60,9 @@ class _MainPageState extends State<MainPage> {
             return BottomNavigationBar(
               currentIndex: state.index,
               iconSize: 22,
-              onTap: (i) =>
-                  BlocProvider.of<NavbarCubit>(context).getNavBarItem(i),
+              onTap: (i) {
+                BlocProvider.of<NavbarCubit>(context).getNavBarItem(i);
+              },
               showSelectedLabels: true,
               showUnselectedLabels: true,
               selectedItemColor: colorPrimaryDark,

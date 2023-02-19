@@ -6,7 +6,10 @@ Options dioOption({
   return Options(
     followRedirects: false,
     validateStatus: (status) => true,
-    headers: headers ?? {},
+    headers: headers ??
+        {
+          "Access-Control-Allow-Origin": "*",
+        },
     responseType: ResponseType.json,
     sendTimeout: 5000,
   );

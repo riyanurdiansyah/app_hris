@@ -55,7 +55,7 @@ class _LoginPageState extends State<LoginPage> {
           }
 
           if (state is AuthLoginSuccessState) {
-            context.replace(AppRouteName.main);
+            context.goNamed(AppRouteName.home);
           }
         },
         builder: (context, state) {
