@@ -1,6 +1,6 @@
 class UserSpfEntity {
   UserSpfEntity({
-    required this.id,
+    required this.uuid,
     required this.employeeId,
     required this.username,
     required this.email,
@@ -12,7 +12,7 @@ class UserSpfEntity {
     required this.token,
   });
 
-  final int id;
+  final String uuid;
   final String employeeId;
   final String username;
   final String email;
@@ -24,7 +24,7 @@ class UserSpfEntity {
   final String token;
 
   UserSpfEntity copyWith({
-    int? id,
+    String? uuid,
     String? employeeId,
     String? username,
     String? email,
@@ -36,7 +36,7 @@ class UserSpfEntity {
     String? token,
   }) =>
       UserSpfEntity(
-        id: id ?? this.id,
+        uuid: uuid ?? this.uuid,
         employeeId: employeeId ?? this.employeeId,
         username: username ?? this.username,
         email: email ?? this.email,

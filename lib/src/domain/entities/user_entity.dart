@@ -1,5 +1,7 @@
-class UserEntity {
-  UserEntity({
+import 'package:equatable/equatable.dart';
+
+class UserEntity extends Equatable {
+  const UserEntity({
     required this.code,
     required this.status,
     required this.message,
@@ -27,11 +29,14 @@ class UserEntity {
         data: data ?? this.data,
         token: token ?? this.token,
       );
+
+  @override
+  List<Object?> get props => [code, status, message, data, token];
 }
 
-class UserDataEntity {
-  UserDataEntity({
-    required this.id,
+class UserDataEntity extends Equatable {
+  const UserDataEntity({
+    required this.uuid,
     required this.employeeId,
     required this.username,
     required this.email,
@@ -42,29 +47,29 @@ class UserDataEntity {
     required this.updatedAt,
   });
 
-  final int id;
+  final String uuid;
   final String employeeId;
   final String username;
   final String email;
   final String phoneNumber;
   final int role;
   final String companySecretKey;
-  final DateTime createdAt;
-  final DateTime updatedAt;
+  final String createdAt;
+  final String updatedAt;
 
   UserDataEntity copyWith({
-    int? id,
+    String? uuid,
     String? employeeId,
     String? username,
     String? email,
     String? phoneNumber,
     int? role,
     String? companySecretKey,
-    DateTime? createdAt,
-    DateTime? updatedAt,
+    String? createdAt,
+    String? updatedAt,
   }) =>
       UserDataEntity(
-        id: id ?? this.id,
+        uuid: uuid ?? this.uuid,
         employeeId: employeeId ?? this.employeeId,
         username: username ?? this.username,
         email: email ?? this.email,
@@ -74,4 +79,17 @@ class UserDataEntity {
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt,
       );
+
+  @override
+  List<Object?> get props => [
+        uuid,
+        employeeId,
+        username,
+        email,
+        phoneNumber,
+        role,
+        companySecretKey,
+        createdAt,
+        updatedAt
+      ];
 }

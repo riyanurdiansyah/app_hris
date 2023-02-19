@@ -1,3 +1,4 @@
+import 'package:app_hris/src/presentation/bloc/home/home_bloc.dart';
 import 'package:app_hris/src/presentation/cubit/navbar/navbar_cubit.dart';
 import 'package:app_hris/src/presentation/pages/akun_page.dart';
 import 'package:app_hris/src/presentation/pages/grafik_page.dart';
@@ -10,13 +11,34 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class MainPage extends StatelessWidget {
+class MainPage extends StatefulWidget {
   const MainPage({super.key});
 
   @override
+  State<MainPage> createState() => _MainPageState();
+}
+
+class _MainPageState extends State<MainPage> {
+  final HomeBloc _homeBloc = HomeBloc();
+
+  @override
+  void initState() {
+    _homeBloc.add(HomeGetMenuEvent());
+    _homeBloc.add(HomeGetTasksEvent());
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return BlocProvider<NavbarCubit>(
-      create: (context) => NavbarCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<NavbarCubit>(
+          create: (_) => NavbarCubit(),
+        ),
+        BlocProvider<HomeBloc>(
+          create: (_) => _homeBloc,
+        ),
+      ],
       child: Scaffold(
         backgroundColor: Colors.white,
         body: BlocBuilder<NavbarCubit, NavbarState>(

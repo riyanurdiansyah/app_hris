@@ -1,7 +1,7 @@
 abstract class AppRouteName {
-  static const welcome = "welcome";
+  static const welcome = "/welcome";
 
-  static const signin = "signin";
+  static const signin = "/signin";
 
-  static const main = "main";
+  static const main = "/main";
 }

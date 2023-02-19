@@ -1,7 +1,7 @@
 import 'package:app_hris/src/domain/entities/user_entity.dart';
 
 class UserDTO extends UserEntity {
-  UserDTO({
+  const UserDTO({
     required super.code,
     required super.status,
     required super.message,
@@ -18,8 +18,8 @@ class UserDTO extends UserEntity {
 }
 
 class UserDataDTO extends UserDataEntity {
-  UserDataDTO({
-    required super.id,
+  const UserDataDTO({
+    required super.uuid,
     required super.employeeId,
     required super.username,
     required super.email,
@@ -31,14 +31,14 @@ class UserDataDTO extends UserDataEntity {
   });
 
   factory UserDataDTO.fromJson(Map<String, dynamic> json) => UserDataDTO(
-        id: json["id"],
+        uuid: json["uuid"],
         employeeId: json["employee_id"],
         username: json["username"],
         email: json["email"],
         phoneNumber: json["phone_number"],
         role: json["role"],
         companySecretKey: json["company_secret_key"],
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
+        createdAt: json["created_at"],
+        updatedAt: json["updated_at"],
       );
 }

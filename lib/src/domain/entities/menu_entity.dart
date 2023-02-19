@@ -1,5 +1,7 @@
-class MenuEntity {
-  MenuEntity({
+import 'package:equatable/equatable.dart';
+
+class MenuEntity extends Equatable {
+  const MenuEntity({
     required this.code,
     required this.status,
     required this.message,
@@ -23,35 +25,60 @@ class MenuEntity {
         message: message ?? this.message,
         data: data ?? this.data,
       );
+
+  @override
+  List<Object?> get props => [code, status, message, data];
 }
 
-class DataMenuEntity {
-  DataMenuEntity({
+class DataMenuEntity extends Equatable {
+  const DataMenuEntity({
     required this.id,
     required this.title,
     required this.image,
     required this.status,
     required this.route,
+    required this.category,
+    required this.position,
+    required this.language,
+    required this.description,
   });
 
   final int id;
+  final String category;
+  final int position;
   final String title;
   final String image;
   final int status;
+  final String language;
   final String route;
+  final String description;
 
-  DataMenuEntity copyWith({
-    int? id,
-    String? title,
-    String? image,
-    int? status,
-    String? route,
-  }) =>
-      DataMenuEntity(
-        id: id ?? this.id,
-        title: title ?? this.title,
-        image: image ?? this.image,
-        status: status ?? this.status,
-        route: route ?? this.route,
-      );
+  @override
+  List<Object?> get props => [
+        id,
+        category,
+        position,
+        title,
+        image,
+        status,
+        language,
+        route,
+        description
+      ];
+
+  // DataMenuEntity copyWith({
+  //   int? id,
+  //   String? title,
+  //   String? image,
+  //   int? status,
+  //   String? route,
+
+  // }) =>
+  //     DataMenuEntity(
+  //       id: id ?? this.id,
+  //       title: title ?? this.title,
+  //       image: image ?? this.image,
+  //       status: status ?? this.status,
+  //       route: route ?? this.route,
+  //     );
 }

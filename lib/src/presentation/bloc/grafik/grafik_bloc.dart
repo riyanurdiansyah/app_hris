@@ -5,7 +5,6 @@ part 'grafik_event.dart';
 part 'grafik_state.dart';
 
 class GrafikBloc extends Bloc<GrafikEvent, GrafikState> {
-  int tabIndex = 0;
   GrafikBloc() : super(GrafikInitialState()) {
     on<GrafikTabTappedEvent>(_onChangeTab);
     on<GrafikEvent>((event, emit) {});

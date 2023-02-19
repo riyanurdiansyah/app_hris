@@ -15,7 +15,7 @@ class WelcomeBloc extends Bloc<WelcomeEvent, WelcomeState> {
     String? email = pref.getString("user_email");
     String? token = pref.getString("user_token");
     if (email != null && token != null) {
-      final id = pref.getInt("user_id") ?? 0;
+      final uuid = pref.getString("user_id") ?? "";
       final email = pref.getString("user_email") ?? "";
       final username = pref.getString("user_username") ?? "";
       final employeeId = pref.getString("user_employee_id") ?? "";
@@ -30,7 +30,7 @@ class WelcomeBloc extends Bloc<WelcomeEvent, WelcomeState> {
           : DateTime.parse(pref.getString("user_updated")!);
 
       final user = UserSpfEntity(
-        id: id,
+        uuid: uuid,
         employeeId: employeeId,
         username: username,
         email: email,

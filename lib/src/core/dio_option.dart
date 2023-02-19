@@ -8,6 +8,6 @@ Options dioOption({
     validateStatus: (status) => true,
     headers: headers ?? {},
     responseType: ResponseType.json,
-    sendTimeout: 60000,
+    sendTimeout: 5000,
   );
 }

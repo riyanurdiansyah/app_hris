@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:app_hris/src/core/exception_handling.dart';
 import 'package:app_hris/src/data/datasources/remote/auth_remote_datasource.dart';
 import 'package:app_hris/src/data/dto/user_dto.dart';
@@ -22,6 +24,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
       },
       options: dioOption(),
     );
+    log("RES : ${response.data}");
     int code = response.statusCode ?? 500;
     if (code == 200) {
       return UserDTO.fromJson(response.data);
@@ -29,7 +32,7 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
     return ExceptionHandleDataSource.execute(
       code,
       response,
-      'Error Check Status Order... failed connect to server',
+      'Error Login... failed connect to server',
     );
   }
 }

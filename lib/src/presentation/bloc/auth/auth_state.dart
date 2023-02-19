@@ -1,21 +1,29 @@
 part of 'auth_bloc.dart';
 
-abstract class AuthState extends Equatable {
-  const AuthState();
+class AuthState extends Equatable {
+  final UserEntity user;
+
+  const AuthState({
+    this.user = emptyUser,
+  });
+
+  AuthState copyWith({
+    UserEntity? user,
+  }) {
+    return AuthState(
+      user: user ?? this.user,
+    );
+  }
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [user];
 }
 
 class AuthInitial extends AuthState {}
 
 class AuthLoadingState extends AuthState {}
 
-class AuthLoginSuccessState extends AuthState {
-  final UserEntity user;
-
-  const AuthLoginSuccessState(this.user);
-}
+class AuthLoginSuccessState extends AuthState {}
 
 class AuthLoginErrorState extends AuthState {
   final String errorMsg;

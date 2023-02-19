@@ -1,8 +1,13 @@
+import 'package:app_hris/utils/app_url.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../services/app_route_name.dart';
 import '../../../utils/app_color.dart';
+import '../bloc/home/home_bloc.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -10,8 +15,9 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+
     return Scaffold(
-      backgroundColor: colorPrimaryDark,
+      backgroundColor: Colors.white,
       appBar: AppBar(
         centerTitle: false,
         systemOverlayStyle: const SystemUiOverlayStyle(
@@ -24,6 +30,7 @@ class HomePage extends StatelessWidget {
         title: Row(
           children: [
             Container(
+              margin: const EdgeInsets.only(top: 4),
               width: 40,
               height: 40,
               decoration: const BoxDecoration(
@@ -59,333 +66,377 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
-      body: Stack(
-        children: [
-          Column(
-            children: [
-              Expanded(
-                flex: 3,
-                child: Container(
-                  color: colorPrimaryDark,
-                ),
-              ),
-              Expanded(
-                flex: 9,
-                child: Container(
-                  color: Colors.grey.shade100,
-                ),
-              ),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 14),
-            child: Column(
-              children: [
-                const SizedBox(
-                  height: 18,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Last Activity",
-                      style: GoogleFonts.poppins(
-                        fontSize: 11.5,
-                        color: Colors.grey.shade300,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () {},
-                      child: Text(
-                        "see all",
+      body: BlocListener<HomeBloc, HomeState>(
+        listener: (context, state) {
+          if (state is HomeUnAuthorizedState) {
+            context.replace(AppRouteName.signin);
+          }
+        },
+        child: Stack(
+          children: [
+            Container(
+              height: size.height * 0.18,
+              color: colorPrimaryDark,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 14),
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 18,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Last Activity",
                         style: GoogleFonts.poppins(
-                          fontSize: 10,
-                          color: Colors.grey.shade500,
+                          fontSize: 11.5,
+                          color: Colors.grey.shade300,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                Container(
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(6),
-                    color: Colors.grey.shade200,
-                  ),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        flex: 2,
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(vertical: 6),
-                          margin: const EdgeInsets.symmetric(
-                              vertical: 10, horizontal: 8),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: const Color.fromARGB(175, 252, 32, 28),
+                      GestureDetector(
+                        onTap: () {},
+                        child: Text(
+                          "see all",
+                          style: GoogleFonts.poppins(
+                            fontSize: 10,
+                            color: Colors.grey.shade500,
+                            fontWeight: FontWeight.w600,
                           ),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "21",
-                                style: GoogleFonts.poppins(
-                                  fontSize: 18,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                              Text(
-                                "SAB",
-                                style: GoogleFonts.poppins(
-                                  fontSize: 14,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 3,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "Clock In",
-                              style: GoogleFonts.poppins(
-                                fontSize: 14,
-                                color: colorPrimaryDark,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 6,
-                            ),
-                            Text(
-                              "08:40 WIB",
-                              style: GoogleFonts.poppins(
-                                fontSize: 12,
-                                color: Colors.grey.shade600,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 25),
-                        child: VerticalDivider(
-                          thickness: 2,
-                          color: Colors.grey.shade400,
-                        ),
-                      ),
-                      Expanded(
-                        flex: 3,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "Clock Out",
-                              style: GoogleFonts.poppins(
-                                fontSize: 14,
-                                color: colorPrimaryDark,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 6,
-                            ),
-                            Text(
-                              "18:40 WIB",
-                              style: GoogleFonts.poppins(
-                                fontSize: 12,
-                                color: Colors.grey.shade600,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ],
                         ),
                       ),
                     ],
                   ),
-                ),
-                const SizedBox(
-                  height: 35,
-                ),
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: List.generate(
-                      5,
-                      (index) => Container(
-                        width: 80,
-                        height: 110,
-                        margin: EdgeInsets.only(right: index + 1 == 5 ? 0 : 12),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(4),
-                          color: Colors.grey.shade300,
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              width: 50,
-                              height: 50,
-                              decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Colors.white,
-                                image: DecorationImage(
-                                  image: AssetImage(
-                                    "assets/images/attendance.png",
-                                  ),
-                                  scale: 12.5,
-                                ),
-                              ),
-                            ),
-                            const SizedBox(
-                              height: 16,
-                            ),
-                            Text(
-                              "Absen",
-                              style: GoogleFonts.poppins(
-                                fontSize: 12,
-                                color: colorPrimaryDark,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+                  const SizedBox(
+                    height: 16,
                   ),
-                ),
-                const SizedBox(
-                  height: 25,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      "Daily Task",
-                      style: GoogleFonts.poppins(
-                        fontSize: 11.5,
-                        color: colorPrimaryDark,
-                        fontWeight: FontWeight.w600,
-                      ),
+                  Container(
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(6),
+                      color: Colors.grey.shade200,
                     ),
-                    GestureDetector(
-                      onTap: () {},
-                      child: Text(
-                        "see all",
-                        style: GoogleFonts.poppins(
-                          fontSize: 10,
-                          color: Colors.blue.shade300,
-                          fontWeight: FontWeight.w600,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          flex: 2,
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(vertical: 6),
+                            margin: const EdgeInsets.symmetric(
+                                vertical: 10, horizontal: 8),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: const Color.fromARGB(175, 252, 32, 28),
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "21",
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 18,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                                Text(
+                                  "SAB",
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 14,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 14,
-                ),
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: List.generate(
-                      5,
-                      (index) => Container(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 12, vertical: 10),
-                        margin: EdgeInsets.only(right: index + 1 == 5 ? 0 : 12),
-                        width: 200,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(4),
-                          color: Colors.white,
-                        ),
-                        child:
-                            // Container(
-                            //   margin: const EdgeInsets.symmetric(vertical: 12),
-                            //   alignment: Alignment.topCenter,
-                            //   width: 6,
-                            //   height: 80,
-                            //   decoration: BoxDecoration(
-                            //     color: Color(Random().nextInt(0xF4F4F4F4)),
-                            //     borderRadius: const BorderRadius.only(
-                            //       topRight: Radius.circular(6),
-                            //       bottomRight: Radius.circular(6),
-                            //     ),
-                            //   ),
-                            // ),
-                            // const SizedBox(
-                            //   width: 14,
-                            // ),
-                            SizedBox(
-                          width: 150,
+                        Expanded(
+                          flex: 3,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "Perbaikin Bug Course Page dan Rilis Apps",
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
+                                "Clock In",
                                 style: GoogleFonts.poppins(
-                                  fontSize: 12.5,
-                                  color: Colors.grey.shade600,
+                                  fontSize: 14,
+                                  color: colorPrimaryDark,
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
                               const SizedBox(
-                                height: 8,
+                                height: 6,
                               ),
-                              Divider(
-                                thickness: 4,
-                                color: Colors.grey.shade200,
+                              Text(
+                                "08:40 WIB",
+                                style: GoogleFonts.poppins(
+                                  fontSize: 12,
+                                  color: Colors.grey.shade600,
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
-                              const SizedBox(
-                                height: 8,
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    "assign by :",
-                                    overflow: TextOverflow.ellipsis,
-                                    style: GoogleFonts.poppins(
-                                      fontSize: 9.5,
-                                      fontWeight: FontWeight.w200,
-                                    ),
-                                  ),
-                                  Container(
-                                    width: 20,
-                                    height: 20,
-                                    decoration: const BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: Colors.grey,
-                                    ),
-                                  )
-                                ],
-                              )
                             ],
                           ),
                         ),
-                      ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 25),
+                          child: VerticalDivider(
+                            thickness: 2,
+                            color: Colors.grey.shade400,
+                          ),
+                        ),
+                        Expanded(
+                          flex: 3,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Clock Out",
+                                style: GoogleFonts.poppins(
+                                  fontSize: 14,
+                                  color: colorPrimaryDark,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 6,
+                              ),
+                              Text(
+                                "18:40 WIB",
+                                style: GoogleFonts.poppins(
+                                  fontSize: 12,
+                                  color: Colors.grey.shade600,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                )
-              ],
+                  const SizedBox(
+                    height: 35,
+                  ),
+                  BlocConsumer<HomeBloc, HomeState>(
+                    listener: (context, state) {},
+                    builder: (context, state) {
+                      if (state.isLoadingMenu) {
+                        return const CircularProgressIndicator();
+                      }
+                      final data = state.menu.data
+                          .where((e) => e.language == "in_ID")
+                          .toList();
+                      return SizedBox(
+                        width: double.infinity,
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: List.generate(
+                              data.length,
+                              (index) => Padding(
+                                padding: EdgeInsets.only(
+                                    right: index + 1 == data.length ? 0 : 10),
+                                child: InkWell(
+                                  onTap: () {},
+                                  child: Card(
+                                    elevation: 2,
+                                    child: Container(
+                                      width: 80,
+                                      height: 110,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(4),
+                                        color: Colors.grey.shade300,
+                                      ),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Container(
+                                            width: 50,
+                                            height: 50,
+                                            decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              color: Colors.white,
+                                              image: DecorationImage(
+                                                image: NetworkImage(
+                                                  "$baseUrl${data[index].image}",
+                                                ),
+                                                onError: (_, __) =>
+                                                    const SizedBox(),
+                                                scale: 12.5,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 16,
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 4),
+                                            child: FittedBox(
+                                              child: Text(
+                                                data[index].title,
+                                                style: GoogleFonts.poppins(
+                                                  fontSize: 11,
+                                                  color: colorPrimaryDark,
+                                                  fontWeight: FontWeight.w600,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                  const SizedBox(
+                    height: 25,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Daily Task",
+                        style: GoogleFonts.poppins(
+                          fontSize: 11.5,
+                          color: colorPrimaryDark,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {},
+                        child: Text(
+                          "see all",
+                          style: GoogleFonts.poppins(
+                            fontSize: 10,
+                            color: Colors.blue.shade300,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 14,
+                  ),
+                  BlocConsumer<HomeBloc, HomeState>(
+                    listener: (context, state) {},
+                    builder: (context, state) {
+                      if (state.isLoadingTask) {
+                        return const CircularProgressIndicator();
+                      }
+                      return SizedBox(
+                        width: double.infinity,
+                        child: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: List.generate(
+                              state.tasks.data.length,
+                              (index) => Container(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 12, vertical: 10),
+                                margin: EdgeInsets.only(
+                                    right: index + 1 == 5 ? 0 : 12),
+                                width: 200,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(4),
+                                  color: Colors.white,
+                                ),
+                                child:
+                                    // Container(
+                                    //   margin: const EdgeInsets.symmetric(vertical: 12),
+                                    //   alignment: Alignment.topCenter,
+                                    //   width: 6,
+                                    //   height: 80,
+                                    //   decoration: BoxDecoration(
+                                    //     color: Color(Random().nextInt(0xF4F4F4F4)),
+                                    //     borderRadius: const BorderRadius.only(
+                                    //       topRight: Radius.circular(6),
+                                    //       bottomRight: Radius.circular(6),
+                                    //     ),
+                                    //   ),
+                                    // ),
+                                    // const SizedBox(
+                                    //   width: 14,
+                                    // ),
+                                    SizedBox(
+                                  width: 150,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        state.tasks.data[index].title,
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: GoogleFonts.poppins(
+                                          fontSize: 12.5,
+                                          color: Colors.grey.shade600,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 8,
+                                      ),
+                                      Divider(
+                                        thickness: 4,
+                                        color: Colors.grey.shade200,
+                                      ),
+                                      const SizedBox(
+                                        height: 8,
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            "assign by :",
+                                            overflow: TextOverflow.ellipsis,
+                                            style: GoogleFonts.poppins(
+                                              fontSize: 9.5,
+                                              fontWeight: FontWeight.w200,
+                                            ),
+                                          ),
+                                          Container(
+                                            width: 20,
+                                            height: 20,
+                                            decoration: const BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              color: Colors.grey,
+                                            ),
+                                          )
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  )
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+          //   ),
+        ),
       ),
     );
   }

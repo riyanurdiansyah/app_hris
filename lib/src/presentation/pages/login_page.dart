@@ -7,7 +7,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -23,8 +22,6 @@ final _tcPassword = TextEditingController();
 final _formKey = GlobalKey<FormState>();
 bool _isVisible = true;
 
-final _authBloc = AuthBloc();
-
 class _LoginPageState extends State<LoginPage> {
   @override
   void dispose() {
@@ -35,6 +32,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return BlocProvider<AuthBloc>(
       create: (_) => AuthBloc()..add(AuthSetupEvent()),
       child: BlocConsumer<AuthBloc, AuthState>(
@@ -57,260 +55,230 @@ class _LoginPageState extends State<LoginPage> {
           }
 
           if (state is AuthLoginSuccessState) {
-            context.goNamed(AppRouteName.main);
+            context.replace(AppRouteName.main);
           }
         },
         builder: (context, state) {
           return Scaffold(
             resizeToAvoidBottomInset: false,
-            backgroundColor: colorPrimaryDark,
-            body: SafeArea(
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 35),
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "welcome_to".tr(),
-                        style: GoogleFonts.poppins(
-                          fontSize: 18,
-                          color: colorSecondary,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            "Project-X.",
-                            style: GoogleFonts.poppins(
-                              fontSize: 26,
-                              color: colorPrimary,
-                              fontWeight: FontWeight.w700,
-                            ),
+            backgroundColor: Colors.white,
+            body: Stack(
+              children: [
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 35),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          width: size.width,
+                          alignment: Alignment.center,
+                          child: Image.asset(
+                            "assets/images/logo.png",
+                            filterQuality: FilterQuality.high,
+                            width: 225,
                           ),
-                          const Spacer(),
-                          TextButton.icon(
-                            style: ButtonStyle(
-                              overlayColor:
-                                  MaterialStateProperty.all(Colors.red),
-                            ),
-                            onPressed: () {},
-                            icon: FaIcon(
-                              FontAwesomeIcons.earthAsia,
-                              color: colorSecondary,
-                              size: 16,
+                        ),
+                        TextFormField(
+                          controller: _tcEmail,
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          textInputAction: TextInputAction.next,
+                          cursorColor: Colors.black,
+                          keyboardType: TextInputType.emailAddress,
+                          style: GoogleFonts.poppins(
+                            color: Colors.black54,
+                          ),
+                          inputFormatters: [
+                            AppLowerCaseTxt(),
+                          ],
+                          validator: (value) => AppValidator.checkEmail(value!),
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.zero,
+                            hintText: "johndoe@example.com",
+                            hintStyle: GoogleFonts.poppins(
+                              color: Colors.black54,
+                              fontSize: 16,
                             ),
                             label: Text(
-                              EasyLocalization.of(context)!
-                                          .currentLocale
-                                          .toString() ==
-                                      "en_US"
-                                  ? "EN"
-                                  : "ID",
+                              "Email",
                               style: GoogleFonts.poppins(
-                                color: colorSecondary,
-                                fontSize: 12.5,
-                                fontWeight: FontWeight.w600,
+                                fontSize: 16,
                               ),
                             ),
                           ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 50,
-                      ),
-                      TextFormField(
-                        controller: _tcEmail,
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        textInputAction: TextInputAction.next,
-                        cursorColor: Colors.black,
-                        keyboardType: TextInputType.emailAddress,
-                        style: GoogleFonts.poppins(
-                          color: Colors.black54,
                         ),
-                        inputFormatters: [
-                          AppLowerCaseTxt(),
-                        ],
-                        validator: (value) => AppValidator.checkEmail(value!),
-                        decoration: InputDecoration(
-                          hintText: "Email",
-                          hintStyle: GoogleFonts.poppins(),
-                          isDense: true,
-                          fillColor: const Color.fromARGB(221, 255, 255, 255),
-                          filled: true,
-                          errorStyle: GoogleFonts.montserrat(
-                            color: Colors.red,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                          ),
-                          prefixIcon: Icon(
-                            CupertinoIcons.mail_solid,
-                            color: Colors.grey.shade400,
-                          ),
-                          errorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide(
-                              color: Colors.red.shade400,
-                              width: 1.5,
-                            ),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: const BorderSide(
-                              color: Color.fromARGB(172, 255, 255, 255),
-                              width: 1.5,
-                            ),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: const BorderSide(
-                              color: Color.fromARGB(172, 255, 255, 255),
-                              width: 0.4,
-                            ),
-                          ),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide(
-                              color: Colors.grey.shade400,
-                              width: 0.4,
-                            ),
-                          ),
+                        const SizedBox(
+                          height: 20,
                         ),
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      TextFormField(
-                        controller: _tcPassword,
-                        obscureText: _isVisible,
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        textInputAction: TextInputAction.done,
-                        cursorColor: Colors.black,
-                        keyboardType: TextInputType.visiblePassword,
-                        style: GoogleFonts.poppins(
-                          color: Colors.black54,
-                        ),
-                        validator: (value) =>
-                            AppValidator.checkFieldPass(value!),
-                        decoration: InputDecoration(
-                          hintText: "Password",
-                          hintStyle: GoogleFonts.poppins(),
-                          isDense: true,
-                          fillColor: const Color.fromARGB(221, 255, 255, 255),
-                          filled: true,
-                          errorStyle: GoogleFonts.montserrat(
-                            color: Colors.red,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
+                        TextFormField(
+                          controller: _tcPassword,
+                          obscureText: _isVisible,
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          textInputAction: TextInputAction.next,
+                          cursorColor: Colors.black,
+                          keyboardType: TextInputType.emailAddress,
+                          style: GoogleFonts.poppins(
+                            color: Colors.black54,
                           ),
-                          prefixIcon: Icon(
-                            CupertinoIcons.lock_fill,
-                            color: Colors.grey.shade400,
-                          ),
-                          suffixIcon: GestureDetector(
-                            onTap: (() {
-                              setState(() {
-                                _isVisible = !_isVisible;
-                              });
-                            }),
-                            child: Icon(
-                              !_isVisible
-                                  ? CupertinoIcons.eye
-                                  : CupertinoIcons.eye_slash,
+                          inputFormatters: [
+                            AppLowerCaseTxt(),
+                          ],
+                          validator: (value) =>
+                              AppValidator.checkFieldPass(value!),
+                          decoration: InputDecoration(
+                            contentPadding: EdgeInsets.zero,
+                            hintText: "********",
+                            hintStyle: GoogleFonts.poppins(
                               color: Colors.black54,
+                              fontSize: 16,
                             ),
-                          ),
-                          errorBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide(
-                              color: Colors.red.shade400,
-                              width: 1.5,
+                            label: Text(
+                              "Password",
+                              style: GoogleFonts.poppins(
+                                fontSize: 16,
+                              ),
                             ),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: const BorderSide(
-                              color: Color.fromARGB(172, 255, 255, 255),
-                              width: 1.5,
-                            ),
-                          ),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: const BorderSide(
-                              color: Color.fromARGB(172, 255, 255, 255),
-                              width: 0.4,
-                            ),
-                          ),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide(
-                              color: Colors.grey.shade400,
-                              width: 0.4,
+                            suffixIcon: GestureDetector(
+                              onTap: (() {
+                                setState(() {
+                                  _isVisible = !_isVisible;
+                                });
+                              }),
+                              child: Icon(
+                                !_isVisible
+                                    ? CupertinoIcons.eye
+                                    : CupertinoIcons.eye_slash,
+                                color: Colors.black54,
+                                size: 18,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: TextButton(
-                          onPressed: () {},
-                          child: Text(
-                            "need_help".tr(),
-                            style: GoogleFonts.poppins(
-                              color: colorPrimary,
-                              fontSize: 14,
-                            ),
-                          ),
+                        const SizedBox(
+                          height: 16,
                         ),
-                      ),
-                    ],
+                        Row(
+                          children: [
+                            SizedBox(
+                              width: 20,
+                              child: Checkbox(
+                                value: false,
+                                onChanged: (val) {},
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 8,
+                            ),
+                            Text(
+                              "Remember me",
+                              style: GoogleFonts.poppins(
+                                color: colorPrimaryDark,
+                                fontSize: 12,
+                              ),
+                            ),
+                            const Spacer(),
+                            TextButton(
+                              onPressed: () {},
+                              child: Text(
+                                "Forgot Password",
+                                style: GoogleFonts.poppins(
+                                  color: colorPrimaryDark,
+                                  fontSize: 12,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ),
-            bottomNavigationBar: Container(
-              height: 50,
-              margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 26),
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: colorPrimary,
-                ),
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    context
-                        .read<AuthBloc>()
-                        .add(AuthLoginEvent(_tcEmail.text, _tcPassword.text));
-                  }
-                },
-                child: BlocBuilder<AuthBloc, AuthState>(
-                  builder: (context, state) {
-                    if (state is AuthLoadingState) {
-                      return const SizedBox(
-                        width: 24,
-                        height: 24,
-                        child: CircularProgressIndicator(
-                          strokeWidth: 5,
-                          color: Colors.white,
+                BlocBuilder<AuthBloc, AuthState>(builder: (context, state) {
+                  if (state is AuthLoadingState) {
+                    return Container(
+                      width: double.infinity,
+                      height: size.height,
+                      color: Colors.transparent,
+                      child: Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Container(
+                          margin: const EdgeInsets.only(bottom: 35),
+                          width: 50,
+                          height: 50,
+                          padding: const EdgeInsets.all(15),
+                          decoration: BoxDecoration(
+                            color: Colors.grey.shade300,
+                            borderRadius: BorderRadius.circular(16),
+                          ),
+                          child: const CircularProgressIndicator(
+                            color: Colors.black26,
+                          ),
                         ),
-                      );
-                    }
-                    return Text(
+                      ),
+                    );
+                  }
+
+                  return const SizedBox();
+                }),
+              ],
+            ),
+            bottomNavigationBar: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 18),
+                  width: size.width,
+                  height: 50,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: colorPrimaryDark,
+                    ),
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        context.read<AuthBloc>().add(
+                            AuthLoginEvent(_tcEmail.text, _tcPassword.text));
+                      }
+                    },
+                    child: Text(
                       "signin".tr(),
+                      style: GoogleFonts.poppins(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 18),
+                  width: size.width,
+                  height: 50,
+                  child: OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      side: BorderSide(
+                        color: colorPrimaryDark,
+                      ),
+                    ),
+                    onPressed: () {},
+                    child: Text(
+                      "Sign Up",
                       style: GoogleFonts.poppins(
                         color: colorPrimaryDark,
                         fontSize: 18,
                         fontWeight: FontWeight.w600,
                       ),
-                    );
-                  },
+                    ),
+                  ),
                 ),
-              ),
+                const SizedBox(
+                  height: 50,
+                ),
+              ],
             ),
           );
         },

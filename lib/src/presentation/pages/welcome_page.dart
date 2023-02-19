@@ -1,3 +1,4 @@
+import 'package:app_hris/services/app_route_name.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -11,19 +12,24 @@ class WelcomePage extends StatelessWidget {
     return BlocListener<WelcomeBloc, WelcomeState>(
       listener: (context, state) {
         if (state is WelcomeAuthenticatedState) {
-          context.go("/main");
+          if (state.user.role == 1) {
+            context.replace(AppRouteName.main);
+          } else {
+            context.replace(AppRouteName.main);
+          }
         }
 
         if (state is WelcomeUnAuthenticatedState) {
-          context.go("/main");
+          context.replace(AppRouteName.signin);
         }
       },
       child: Scaffold(
         body: Center(
           child: GestureDetector(
-            onTap: () => context.go("/signin"),
-            child: const FlutterLogo(
-              size: 125,
+            onTap: () => context.go(AppRouteName.signin),
+            child: Image.asset(
+              "assets/images/logo.png",
+              width: 200,
             ),
           ),
         ),

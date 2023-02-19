@@ -14,17 +14,17 @@ Future dioInterceptor(Dio dio, String token) async {
         handler,
       ) async {
         final Map<String, dynamic> headers = {
-          "Authorization": token,
+          "Authorization": "Bearer $token",
           "Accept": "application/json",
           "Content-Type": "application/json",
         };
         options.headers.addAll(headers);
         return handler.next(options);
       },
-      onResponse: (response, handler) async {
-        if (response.statusCode == 401) {
-          log("TOKEN UNAUTHORIZED");
-        }
+      onResponse: (response, handler) {
+        // SharedPreferences prefs = await SharedPreferences.getInstance();
+        // prefs.clear();
+        if (response.statusCode == 401) {}
         return handler.next(response);
       },
       onError: (error, handler) async {

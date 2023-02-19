@@ -1,8 +1,11 @@
+import 'dart:developer';
+
 import 'package:app_hris/src/core/failure.dart';
 import 'package:app_hris/src/data/datasources/remote/auth_remote_datasource_impl.dart';
 import 'package:app_hris/src/data/repositories/auth_repository_impl.dart';
 import 'package:app_hris/src/domain/entities/user_entity.dart';
 import 'package:app_hris/src/domain/usecases/auth_usecase.dart';
+import 'package:app_hris/utils/app_empty_entity.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -34,6 +37,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<AuthLoginEvent>(_login);
   }
   void _setup(event, emit) async {
+    log("SETUP AUTH BLOC");
     _datasource = AuthRemoteDataSourceImpl();
     _repository = AuthRepositoryImpl(_datasource);
     _usecase = AuthUseCase(_repository);
@@ -53,20 +57,21 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       }
     }, (data) {
       _saveDataToSession(data);
-      emit(AuthLoginSuccessState(data));
+      emit(state.copyWith(user: data));
+      emit(AuthLoginSuccessState());
     });
   }
 
   void _saveDataToSession(UserEntity user) async {
     _pref.setString("user_email", user.data.email);
     _pref.setString("user_token", user.token);
-    _pref.setInt("user_id", user.data.id);
+    _pref.setString("user_id", user.data.uuid);
     _pref.setString("user_username", user.data.username);
     _pref.setString("user_employee_id", user.data.employeeId);
     _pref.setString("user_hp", user.data.phoneNumber);
     _pref.setInt("user_role", user.data.role);
     _pref.setString("user_company_key", user.data.companySecretKey);
-    _pref.setString("user_created", user.data.createdAt.toIso8601String());
-    _pref.setString("user_updated", user.data.updatedAt.toIso8601String());
+    _pref.setString("user_created", user.data.createdAt);
+    _pref.setString("user_updated", user.data.updatedAt);
   }
 }

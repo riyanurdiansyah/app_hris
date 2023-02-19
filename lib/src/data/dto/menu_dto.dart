@@ -24,6 +24,10 @@ class DataMenuDTO extends DataMenuEntity {
     required super.image,
     required super.status,
     required super.route,
+    required super.category,
+    required super.description,
+    required super.language,
+    required super.position,
   });
 
   factory DataMenuDTO.fromJson(Map<String, dynamic> json) => DataMenuDTO(
@@ -32,5 +36,9 @@ class DataMenuDTO extends DataMenuEntity {
         image: json["image"],
         status: json["status"],
         route: json["route"],
+        category: json["category"],
+        description: json["description"],
+        language: json["language"],
+        position: json["position"],
       );
 }

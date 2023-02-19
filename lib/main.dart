@@ -1,4 +1,5 @@
 import 'package:app_hris/src/presentation/bloc/welcome/welcome_bloc.dart';
+import 'package:app_hris/src/presentation/cubit/navbar/navbar_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -28,8 +29,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<WelcomeBloc>(
-      create: (_) => WelcomeBloc()..add(WelcomeCheckAuthenticationEvent()),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<WelcomeBloc>(
+          create: (_) => WelcomeBloc()..add(WelcomeCheckAuthenticationEvent()),
+        ),
+        BlocProvider<NavbarCubit>(
+          create: (_) => NavbarCubit(),
+        ),
+      ],
       child: MaterialApp.router(
         theme: ThemeData(
           appBarTheme: const AppBarTheme(
