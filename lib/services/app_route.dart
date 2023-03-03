@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:app_hris/services/app_route_name.dart';
 import 'package:app_hris/src/presentation/pages/attendance/attendance_page.dart';
+import 'package:app_hris/src/presentation/pages/attendance/camera_page.dart';
+import 'package:app_hris/src/presentation/pages/attendance/choose_attendance_page.dart';
 import 'package:app_hris/src/presentation/pages/login_page.dart';
 import 'package:app_hris/src/presentation/pages/main_page.dart';
 import 'package:app_hris/src/presentation/pages/not_found_page.dart';
@@ -49,8 +53,67 @@ GoRouter router = GoRouter(
           name: AppRouteName.attendance,
           pageBuilder: (context, state) {
             return buildPageWithDefaultTransition(
-                context: context, state: state, child: const AttendancePage());
+                context: context,
+                state: state,
+                child: const ChooseAttendancePage());
           },
+          routes: [
+            GoRoute(
+              path: AppRouteName.cameraClockin,
+              name: AppRouteName.cameraClockin,
+              // name: AppRouteName.attendance,
+              pageBuilder: (context, state) {
+                return buildPageWithDefaultTransition(
+                    context: context,
+                    state: state,
+                    child: const CameraPage(ket: "clockin"));
+              },
+            ),
+            GoRoute(
+              path: AppRouteName.cameraClockout,
+              name: AppRouteName.cameraClockout,
+              // name: AppRouteName.attendance,
+              pageBuilder: (context, state) {
+                return buildPageWithDefaultTransition(
+                    context: context,
+                    state: state,
+                    child: const CameraPage(ket: "clockout"));
+              },
+            ),
+            GoRoute(
+              path: AppRouteName.clockout,
+              name: AppRouteName.clockout,
+              // name: AppRouteName.attendance,
+              pageBuilder: (context, state) {
+                return buildPageWithDefaultTransition(
+                    context: context,
+                    state: state,
+                    child: const AttendancePage(ket: "clockout"));
+              },
+            ),
+            GoRoute(
+              path: AppRouteName.clockin,
+              name: AppRouteName.clockin,
+              // name: AppRouteName.attendance,
+              pageBuilder: (context, state) {
+                Object? object = state.extra;
+                if (object != null && object is File) {
+                  return buildPageWithDefaultTransition(
+                    context: context,
+                    state: state,
+                    child: AttendancePage(
+                      ket: "clockin",
+                      imageFile: object,
+                    ),
+                  );
+                }
+                return buildPageWithDefaultTransition(
+                    context: context,
+                    state: state,
+                    child: const AttendancePage(ket: "clockin"));
+              },
+            ),
+          ],
         ),
       ],
     ),

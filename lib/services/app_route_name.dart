@@ -9,5 +9,15 @@ abstract class AppRouteName {
 
   static const inbox = "inbox";
 
+  static const chooseAttendance = "choose-attendance";
+
   static const attendance = "attendance";
+
+  static const cameraClockin = "camera-clockin";
+
+  static const cameraClockout = "camera-clockout";
+
+  static const clockin = "clockin";
+
+  static const clockout = "clockout";
 }

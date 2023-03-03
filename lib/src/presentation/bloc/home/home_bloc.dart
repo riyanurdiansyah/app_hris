@@ -4,7 +4,6 @@ import 'package:app_hris/src/data/repositories/home_repository_impl.dart';
 import 'package:app_hris/src/domain/entities/menu_entity.dart';
 import 'package:app_hris/src/domain/entities/task_entity.dart';
 import 'package:app_hris/src/domain/usecases/home_usecase.dart';
-import 'package:app_hris/src/presentation/bloc/auth/auth_bloc.dart';
 import 'package:app_hris/utils/app_empty_entity.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,8 +17,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   late HomeRepositoryImpl _repository;
   late HomeRemoteDataSourceImpl _datasource;
   late SharedPreferences _prefs;
-
-  final AuthBloc _authBloc = AuthBloc();
 
   HomeBloc() : super(HomeInitialState()) {
     _datasource = HomeRemoteDataSourceImpl();
