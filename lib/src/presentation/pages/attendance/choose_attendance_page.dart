@@ -96,7 +96,7 @@ class ChooseAttendancePage extends StatelessWidget {
                 backgroundColor: colorPrimaryDark.withOpacity(0.6),
                 heroTag: null,
                 child: const Icon(Icons.punch_clock),
-                onPressed: () => router.pushNamed(AppRouteName.clockout),
+                onPressed: () => router.pushNamed(AppRouteName.cameraClockout),
               ),
             ],
           ),

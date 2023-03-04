@@ -85,10 +85,21 @@ GoRouter router = GoRouter(
               name: AppRouteName.clockout,
               // name: AppRouteName.attendance,
               pageBuilder: (context, state) {
+                Object? object = state.extra;
+                if (object != null && object is File) {
+                  return buildPageWithDefaultTransition(
+                    context: context,
+                    state: state,
+                    child: AttendancePage(
+                      ket: "clockout",
+                      imageFile: object,
+                    ),
+                  );
+                }
                 return buildPageWithDefaultTransition(
                     context: context,
                     state: state,
-                    child: const AttendancePage(ket: "clockout"));
+                    child: AttendancePage(ket: "clockout"));
               },
             ),
             GoRoute(
@@ -110,7 +121,7 @@ GoRouter router = GoRouter(
                 return buildPageWithDefaultTransition(
                     context: context,
                     state: state,
-                    child: const AttendancePage(ket: "clockin"));
+                    child: AttendancePage(ket: "clockin"));
               },
             ),
           ],

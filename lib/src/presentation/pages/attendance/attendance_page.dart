@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:app_hris/src/presentation/bloc/attendance/attendance_bloc.dart';
 import 'package:app_hris/src/presentation/pages/attendance/widgets/custom_slider_button.dart';
 import 'package:app_hris/utils/app_color.dart';
 import 'package:app_hris/utils/app_constanta.dart';
@@ -9,7 +10,9 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:latlong2/latlong.dart';
 
-class AttendancePage extends StatelessWidget {
+import '../../../../services/app_route_name.dart';
+
+class AttendancePage extends StatefulWidget {
   const AttendancePage({
     super.key,
     required this.ket,
@@ -20,33 +23,37 @@ class AttendancePage extends StatelessWidget {
   final File? imageFile;
 
   @override
+  State<AttendancePage> createState() => _AttendancePageState();
+}
+
+class _AttendancePageState extends State<AttendancePage> {
+  final _attendanceBloc = AttendanceBloc();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final router = GoRouter.of(context);
     return Scaffold(
-      // appBar: AppBar(
-      //   elevation: 0,
-      //   backgroundColor: colorPrimaryDark,
-      //   centerTitle: true,
-      //   title: Text(
-      //     "Absen",
-      //     style: GoogleFonts.poppins(
-      //       fontSize: 16,
-      //       fontWeight: FontWeight.w600,
-      //     ),
-      //   ),
-      // ),
       body: SizedBox(
         width: double.infinity,
         height: size.height,
         child: Stack(
           children: [
             FlutterMap(
+              mapController: _attendanceBloc.mapController,
               options: MapOptions(
+                interactiveFlags: InteractiveFlag.none,
                 maxZoom: 20,
                 minZoom: 10,
                 zoom: 18,
                 center: LatLng(51.5090214, -0.1982948),
+                enableMultiFingerGestureRace: false,
+                enableScrollWheel: false,
               ),
               nonRotatedChildren: [
                 TileLayer(
@@ -55,7 +62,7 @@ class AttendancePage extends StatelessWidget {
                     "access_token": mapBoxToken,
                     "id": mapBoxStyle,
                   },
-                )
+                ),
               ],
             ),
             Align(
@@ -127,7 +134,6 @@ class AttendancePage extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 12, vertical: 10),
                       width: double.infinity,
-                      height: size.height / 2.4,
                       decoration: const BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.only(
@@ -195,7 +201,7 @@ class AttendancePage extends StatelessWidget {
                           ),
                           Row(
                             children: [
-                              if (imageFile == null)
+                              if (widget.imageFile == null)
                                 Container(
                                   width: 65,
                                   height: 65,
@@ -204,7 +210,7 @@ class AttendancePage extends StatelessWidget {
                                     color: Colors.grey.shade300,
                                   ),
                                 ),
-                              if (imageFile != null)
+                              if (widget.imageFile != null)
                                 Container(
                                   width: 65,
                                   height: 65,
@@ -212,7 +218,7 @@ class AttendancePage extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(4),
                                     color: Colors.grey.shade300,
                                     image: DecorationImage(
-                                      image: FileImage(imageFile!),
+                                      image: FileImage(widget.imageFile!),
                                       fit: BoxFit.cover,
                                     ),
                                   ),
@@ -224,7 +230,7 @@ class AttendancePage extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "Ukuran File : 12.25 Mb",
+                                    "Ukuran File : ${_attendanceBloc.getFileSize(widget.imageFile!.lengthSync(), 1)}",
                                     style: GoogleFonts.poppins(
                                       fontSize: 11,
                                       color: Colors.grey.shade600,
@@ -234,20 +240,22 @@ class AttendancePage extends StatelessWidget {
                                     height: 12,
                                   ),
                                   InkWell(
-                                    onTap: () {},
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        color: Colors.grey.shade200,
-                                        borderRadius: BorderRadius.circular(6),
-                                      ),
-                                      padding: const EdgeInsets.all(6),
-                                      child: Text(
-                                        "retake",
-                                        style: GoogleFonts.poppins(
-                                          fontSize: 12,
-                                          color: Colors.grey.shade400,
-                                          fontWeight: FontWeight.bold,
-                                        ),
+                                    onTap: () {
+                                      if (widget.ket == "clockin") {
+                                        router.pushNamed(
+                                            AppRouteName.cameraClockin);
+                                      } else {
+                                        router.pushNamed(
+                                            AppRouteName.cameraClockout);
+                                      }
+                                    },
+                                    child: Text(
+                                      "Foto Ulang",
+                                      style: GoogleFonts.poppins(
+                                        decoration: TextDecoration.underline,
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.blue,
                                       ),
                                     ),
                                   ),
@@ -265,7 +273,7 @@ class AttendancePage extends StatelessWidget {
                             height: 50,
                             sliderButtonIconSize: 15,
                             borderRadius: 16,
-                            text: ket == "clockin"
+                            text: widget.ket == "clockin"
                                 ? "Slide To Clockin"
                                 : "Slide To Clockout",
                             textStyle: GoogleFonts.poppins(
@@ -278,6 +286,9 @@ class AttendancePage extends StatelessWidget {
                               color: colorPrimaryDark,
                             ),
                             onSubmit: () {},
+                          ),
+                          const SizedBox(
+                            height: 20,
                           ),
                         ],
                       ),

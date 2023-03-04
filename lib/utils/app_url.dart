@@ -1,4 +1,4 @@
-const String baseUrl = "http://192.168.88.78:8080";
+const String baseUrl = "http://192.168.223.61:8080";
 
 const String pathAuthUrl = "$baseUrl/api/v1/auth";
 

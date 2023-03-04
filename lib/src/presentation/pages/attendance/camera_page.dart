@@ -1,9 +1,10 @@
-import 'dart:io';
+import 'dart:developer';
 
-import 'package:app_hris/services/app_route.dart';
+import 'package:app_hris/src/presentation/bloc/camera/camera_bloc.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class CameraPage extends StatefulWidget {
   const CameraPage({super.key, required this.ket});
@@ -14,63 +15,70 @@ class CameraPage extends StatefulWidget {
   State<CameraPage> createState() => _CameraPageState();
 }
 
-class _CameraPageState extends State<CameraPage> {
-  CameraController? controller;
+class _CameraPageState extends State<CameraPage> with WidgetsBindingObserver {
+  final CameraBloc _cameraBloc = CameraBloc();
+  final globalKey = GlobalKey<ScaffoldState>();
 
-  Future initializeCamera() async {
-    var cameras = await availableCameras();
-    controller = CameraController(cameras[1], ResolutionPreset.medium);
-    await controller!.initialize();
-  }
-
-  Future<String?> findLocalPath() async {
-    String? externalStorageDirPath;
-    if (Platform.isAndroid) {
-      final directory = await getExternalStorageDirectory();
-      externalStorageDirPath = directory?.path;
-    } else if (Platform.isIOS) {
-      externalStorageDirPath = (await getApplicationDocumentsDirectory()).path;
-    }
-    return externalStorageDirPath;
-  }
-
-  Future<File?> takePicture() async {
-    final path = await findLocalPath();
-    // String directoryPath = "${root.path}/attendance_camera";
-    // await Directory(path!).create(recursive: true);
-    String filePath = "$path/${DateTime.now()}.jpg";
-
-    try {
-      await controller!.takePicture();
-    } catch (e) {
-      return null;
-    }
-
-    return File(filePath);
+  @override
+  void initState() {
+    WidgetsBinding.instance.addObserver(this);
+    _cameraBloc.add(CameraOnInitializeEvent());
+    super.initState();
   }
 
   @override
   void dispose() {
-    if (controller != null) {
-      controller!.dispose();
-    }
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    // App state changed before we got the chance to initialize.
+    if (!_cameraBloc.isInitialized()) return;
+
+    if (state == AppLifecycleState.inactive) {
+      _cameraBloc.add(CameraStoppedEvent());
+    } else if (state == AppLifecycleState.resumed) {
+      _cameraBloc.add(CameraOnInitializeEvent());
+    }
+    super.didChangeAppLifecycleState(state);
   }
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    return Scaffold(
-      body: FutureBuilder(
-        future: initializeCamera(),
-        builder: (_, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
+    final router = GoRouter.of(context);
+    return BlocProvider<CameraBloc>(
+      create: (_) => _cameraBloc,
+      child: Scaffold(
+        body: BlocConsumer<CameraBloc, CameraState>(
+          listener: (context, state) {
+            if (state is CameraCaptureSuccessState) {
+              router.goNamed(widget.ket, extra: state.image);
+            }
+            if (state is CameraOnInitializeEvent) {
+              log("ON INITIALIZE");
+            }
+            if (state is CameraInitial) {
+              log("message");
+            }
+
+            if (state is CameraReadyState) {}
+          },
+          builder: (context, state) {
+            if (state is CameraInitial || state is CameraFailureState) {
+              return Container(
+                color: Colors.white,
+              );
+            }
+
             return Stack(
               children: [
                 SizedBox(
                   width: size.width,
                   height: size.height,
-                  child: CameraPreview(controller!),
+                  child: CameraPreview(_cameraBloc.cameraController!),
                 ),
                 Align(
                   alignment: Alignment.bottomCenter,
@@ -83,13 +91,7 @@ class _CameraPageState extends State<CameraPage> {
                       color: Colors.white,
                     ),
                     child: InkWell(
-                      onTap: () async {
-                        if (!controller!.value.isTakingPicture) {
-                          final res = await controller!.takePicture();
-
-                          router.goNamed(widget.ket, extra: File(res.path));
-                        }
-                      },
+                      onTap: () => _cameraBloc.add(CameraCapturedEvent()),
                       child: Container(
                         margin: const EdgeInsets.all(6),
                         decoration: const BoxDecoration(
@@ -102,12 +104,8 @@ class _CameraPageState extends State<CameraPage> {
                 ),
               ],
             );
-          }
-
-          return Container(
-            color: Colors.red,
-          );
-        },
+          },
+        ),
       ),
     );
   }
