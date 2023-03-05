@@ -14,7 +14,7 @@ class LocationLoadingState extends AttendanceState {}
 class LocationLoadedState extends AttendanceState {
   const LocationLoadedState(this.position);
 
-  final Position position;
+  final UserLocationEntity position;
 
   @override
   List<Object> get props => [position];

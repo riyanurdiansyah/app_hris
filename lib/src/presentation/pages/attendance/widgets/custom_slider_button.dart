@@ -200,15 +200,8 @@ class CustomSlideActionState extends State<CustomSlideAction>
                                     _cancelAnimation();
                                   } else {
                                     await _resizeAnimation();
+                                    widget.onSubmit!();
                                   }
-                                  //else {
-
-                                  //   await _shrinkAnimation();
-
-                                  // await _checkAnimation();
-
-                                  widget.onSubmit!();
-                                  // }
                                 },
                                 child: Padding(
                                   padding: const EdgeInsets.symmetric(

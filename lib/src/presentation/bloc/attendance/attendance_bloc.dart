@@ -1,19 +1,24 @@
 import 'dart:async';
 import 'dart:io';
 import 'dart:math';
+import 'package:android_intent_plus/android_intent.dart';
 import 'package:app_hris/src/data/datasources/remote/attendance_remote_datasource_impl.dart';
 import 'package:app_hris/src/data/repositories/attendance_repository_impl.dart';
 import 'package:app_hris/src/domain/usecases/attendance_usecase.dart';
+import 'package:app_hris/utils/app_constanta_empty.dart';
 import 'package:dio/dio.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:latlong2/latlong.dart';
-import 'package:app_hris/services/app_location.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:geolocator/geolocator.dart';
+// import 'package:geolocator/geolocator.dart';
+import 'package:location/location.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../core/exception_handling.dart';
+import '../../../core/failure.dart';
+import '../../../domain/entities/user_location_entity.dart';
 part 'attendance_event.dart';
 part 'attendance_state.dart';
 
@@ -24,7 +29,15 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
 
   late SharedPreferences _prefs;
 
-  AppLocationService? _locationService;
+  // late Timer timer;
+
+  UserLocationEntity _userLocation =
+      const UserLocationEntity(latitude: 0, longitude: 0);
+
+  // AppLocationService? _locationService;
+  Location location = Location();
+  final StreamController<UserLocationEntity> locationController =
+      StreamController<UserLocationEntity>.broadcast();
   StreamSubscription? _locationSubscription;
   MapController? mapController;
 
@@ -36,6 +49,11 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
     _repository = AttendanceRepositoryImpl(_datasource);
     _usecase = AttendanceUseCase(_repository);
 
+    // timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+    //   debugPrint("WOKEEYY");
+    //   location.requestPermission();
+    // });
+
     on<AttendanceEvent>(_onInitialize);
     on<CheckPermissionEvent>(_onCheckPermission);
     on<LoadLocationEvent>(_onLoadLocation);
@@ -46,7 +64,11 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
 
   @override
   Future<void> close() {
+    debugPrint("KE DISPOSE");
+    // timer.cancel();
     tcNotes.dispose();
+    _locationSubscription!.cancel();
+    locationController.close();
     _locationSubscription?.cancel();
     return super.close();
   }
@@ -75,28 +97,44 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
       'date': DateFormat("dd-MM-yyyy").format(DateTime.now()),
     };
     final response = await _usecase.attendance(uid, data);
+    response.fold((fail) {
+      ExceptionHandle.execute(fail);
+      if (fail is HttpFailure) {
+        emit(SubmitAttendanceFailureState(fail.message));
+      } else {
+        emit(const SubmitAttendanceFailureState(
+            "Failed connect to server... please try again"));
+      }
+    }, (data) {
+      emit(SubmitAttendanceSuccessState());
+    });
   }
 
   void _onFocusLocation(event, emit) async {
-    final position = await _locationService!.getCurrentLocation();
-    if (position != null) {
-      mapController = MapController();
-      // if (mapController != null) {
-      mapController!.move(LatLng(position.latitude, position.longitude), 18);
-      // }
-    }
+    // final position = await _locationService!.getCurrentLocation();
+    // if (position != null) {
+    //   mapController = MapController();
+    //   // if (mapController != null) {
+    //   mapController!.move(LatLng(position.latitude, position.longitude), 18);
+    //   // }
+    // }
   }
 
   void _onLoadLocation(event, emit) async {
     _locationSubscription?.cancel();
-    final position = await _locationService!.getCurrentLocation();
-    if (position != null) {
-      add(UpdateLocationEvent(position));
-      _locationSubscription = Geolocator.getPositionStream().listen((ev) {
-        // if (mapController != null) {
-        //   mapController!.move(LatLng(event.latitude, event.longitude), 18);
-        // }
-        add(UpdateLocationEvent(ev));
+    _userLocation = await getLocation();
+    if (_userLocation != emptyUserLocation) {
+      add(UpdateLocationEvent(_userLocation));
+      _locationSubscription = location.onLocationChanged.listen((locationData) {
+        _userLocation = UserLocationEntity(
+          latitude: locationData.latitude ?? 0.0,
+          longitude: locationData.longitude ?? 0.0,
+        );
+        if (!locationController.isClosed) {
+          locationController.add(_userLocation);
+
+          add(UpdateLocationEvent(_userLocation));
+        }
       });
     }
   }
@@ -106,39 +144,56 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
   }
 
   void _onCheckPermission(event, emit) async {
-    mapController = MapController();
-    _locationService = AppLocationServiceImpl();
-    bool serviceEnabled;
-    LocationPermission permission;
+    // locate.requestPermission().then((granted) {
+    //   if (granted == loc.PermissionStatus.granted) {
+    //     debugPrint("CEKCOK");
+    //     _locationSubscription = locate.onLocationChanged.listen((locationData) {
+    //       debugPrint("CEKCOK : ${locationData.latitude}");
+    //     });
+    //   } else {
+    //     debugPrint("CEKCOK 2");
+    //   }
+    // });
 
-    // Test if location services are enabled.
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
-    if (!serviceEnabled) {
-      // Location services are not enabled don't continue
-      // accessing the position and request users of the
-      // App to enable the location services.
-      emit(LocationDenyPermissionState());
-    }
+    // if (await location.serviceEnabled()) {}
 
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.whileInUse) {
-      add(LoadLocationEvent());
-    } else {
-      if (permission == LocationPermission.denied) {
-        permission = await Geolocator.requestPermission();
-        if (permission == LocationPermission.whileInUse) {
-          add(LoadLocationEvent());
-        } else if (permission == LocationPermission.denied) {
-          // Permissions are denied, next time you could try
-          // requesting permissions again (this is also where
-          // Android's shouldShowRequestPermissionRationale
-          // returned true. According to Android guidelines
-          // your App should show an explanatory UI now.
-          emit(LocationDenyPermissionState());
-        }
-      } else {
-        emit(LocationDenyPermissionState());
+    location.requestPermission().then((granted) {
+      if (granted == PermissionStatus.granted) {
+        _locationSubscription =
+            location.onLocationChanged.listen((locationData) {
+          if (!locationController.isClosed) {
+            locationController.add(UserLocationEntity(
+              latitude: locationData.latitude ?? 0.0,
+              longitude: locationData.longitude ?? 0.0,
+            ));
+
+            add(LoadLocationEvent());
+          }
+        });
+      } else if (granted == PermissionStatus.deniedForever) {
+        _openLocationSettingsConfiguration();
       }
+    });
+  }
+
+  void _openLocationSettingsConfiguration() {
+    const AndroidIntent intent = AndroidIntent(
+      action: 'android.settings.LOCATION_SOURCE_SETTINGS',
+    );
+    intent.launch();
+  }
+
+  Future<UserLocationEntity> getLocation() async {
+    try {
+      var userLocationEntity = await location.getLocation();
+      _userLocation = UserLocationEntity(
+        latitude: userLocationEntity.latitude ?? 0.0,
+        longitude: userLocationEntity.longitude ?? 0.0,
+      );
+    } catch (e) {
+      print('Could not get the location: $e');
     }
+
+    return _userLocation;
   }
 }

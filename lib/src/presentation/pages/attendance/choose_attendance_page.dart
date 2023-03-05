@@ -1,3 +1,4 @@
+import 'package:android_intent_plus/android_intent.dart';
 import 'package:app_hris/services/app_route_name.dart';
 import 'package:app_hris/src/presentation/pages/attendance/widgets/attendance_card.dart';
 import 'package:flutter/material.dart';
@@ -103,6 +104,7 @@ class ChooseAttendancePage extends StatelessWidget {
                 style: GoogleFonts.poppins(
                   fontSize: 12,
                   color: colorPrimaryDark,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
               const SizedBox(
@@ -112,7 +114,30 @@ class ChooseAttendancePage extends StatelessWidget {
                 backgroundColor: colorPrimaryDark.withOpacity(0.6),
                 heroTag: null,
                 child: const Icon(Icons.punch_clock),
-                onPressed: () => router.pushNamed(AppRouteName.cameraClockout),
+                // onPressed: () => router.pushNamed(AppRouteName.cameraClockout),
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    barrierDismissible: false, // user must tap button!
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text("Can't get current location"),
+                        content: const Text(
+                            'Please make sure you enable GPS and try again'),
+                        actions: <Widget>[
+                          TextButton(
+                              child: const Text('Ok'),
+                              onPressed: () {
+                                const AndroidIntent intent = AndroidIntent(
+                                    action:
+                                        'android.settings.LOCATION_SOURCE_SETTINGS');
+                                intent.launch();
+                              })
+                        ],
+                      );
+                    },
+                  );
+                },
               ),
             ],
           ),
@@ -123,6 +148,7 @@ class ChooseAttendancePage extends StatelessWidget {
                 style: GoogleFonts.poppins(
                   fontSize: 12,
                   color: colorPrimaryDark,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
               const SizedBox(

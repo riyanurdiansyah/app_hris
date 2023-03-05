@@ -14,7 +14,7 @@ class LoadLocationEvent extends AttendanceEvent {}
 class UpdateLocationEvent extends AttendanceEvent {
   const UpdateLocationEvent(this.position);
 
-  final Position position;
+  final UserLocationEntity position;
 
   @override
   List<Object> get props => [position];
