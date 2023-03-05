@@ -8,6 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../services/app_route_name.dart';
 import '../../../utils/app_color.dart';
 import '../bloc/home/home_bloc.dart';
+import 'attendance/widgets/attendance_card.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -113,110 +114,11 @@ class HomePage extends StatelessWidget {
                   const SizedBox(
                     height: 16,
                   ),
-                  Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(6),
-                      color: Colors.grey.shade200,
-                    ),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          flex: 2,
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(vertical: 6),
-                            margin: const EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 8),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              color: const Color.fromARGB(175, 252, 32, 28),
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "21",
-                                  style: GoogleFonts.poppins(
-                                    fontSize: 18,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                                Text(
-                                  "SAB",
-                                  style: GoogleFonts.poppins(
-                                    fontSize: 14,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 3,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Clock In",
-                                style: GoogleFonts.poppins(
-                                  fontSize: 14,
-                                  color: colorPrimaryDark,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 6,
-                              ),
-                              Text(
-                                "08:40 WIB",
-                                style: GoogleFonts.poppins(
-                                  fontSize: 12,
-                                  color: Colors.grey.shade600,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 25),
-                          child: VerticalDivider(
-                            thickness: 2,
-                            color: Colors.grey.shade400,
-                          ),
-                        ),
-                        Expanded(
-                          flex: 3,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Clock Out",
-                                style: GoogleFonts.poppins(
-                                  fontSize: 14,
-                                  color: colorPrimaryDark,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 6,
-                              ),
-                              Text(
-                                "18:40 WIB",
-                                style: GoogleFonts.poppins(
-                                  fontSize: 12,
-                                  color: Colors.grey.shade600,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
+                  const AttendanceCard(
+                    clockin: "08:50 WIB",
+                    clockout: "-",
+                    date: "20",
+                    day: "SAB",
                   ),
                   const SizedBox(
                     height: 20,

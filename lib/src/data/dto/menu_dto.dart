@@ -1,7 +1,7 @@
 import 'package:app_hris/src/domain/entities/menu_entity.dart';
 
 class MenuDTO extends MenuEntity {
-  MenuDTO({
+  const MenuDTO({
     required super.code,
     required super.status,
     required super.message,
@@ -18,7 +18,7 @@ class MenuDTO extends MenuEntity {
 }
 
 class DataMenuDTO extends DataMenuEntity {
-  DataMenuDTO({
+  const DataMenuDTO({
     required super.id,
     required super.title,
     required super.image,

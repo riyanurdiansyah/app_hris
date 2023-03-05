@@ -1,4 +1,5 @@
 import 'package:app_hris/services/app_route_name.dart';
+import 'package:app_hris/src/presentation/pages/attendance/widgets/attendance_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
@@ -45,6 +46,21 @@ class ChooseAttendancePage extends StatelessWidget {
                 topRight: Radius.circular(18),
               ),
               color: Colors.white,
+            ),
+            child: ListView(
+              children: List.generate(
+                8,
+                (index) => Padding(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+                  child: AttendanceCard(
+                    day: "SEN",
+                    date: "${index + 1}",
+                    clockin: "08:25 WIB",
+                    clockout: "18:05 WIB",
+                  ),
+                ),
+              ),
             ),
           )
         ],

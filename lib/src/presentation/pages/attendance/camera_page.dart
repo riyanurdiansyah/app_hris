@@ -32,18 +32,18 @@ class _CameraPageState extends State<CameraPage> with WidgetsBindingObserver {
     super.dispose();
   }
 
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    // App state changed before we got the chance to initialize.
-    if (!_cameraBloc.isInitialized()) return;
+  // @override
+  // void didChangeAppLifecycleState(AppLifecycleState state) {
+  //   // App state changed before we got the chance to initialize.
+  //   if (!_cameraBloc.isInitialized()) return;
 
-    if (state == AppLifecycleState.inactive) {
-      _cameraBloc.add(CameraStoppedEvent());
-    } else if (state == AppLifecycleState.resumed) {
-      _cameraBloc.add(CameraOnInitializeEvent());
-    }
-    super.didChangeAppLifecycleState(state);
-  }
+  //   if (state == AppLifecycleState.inactive) {
+  //     _cameraBloc.add(CameraStoppedEvent());
+  //   } else if (state == AppLifecycleState.resumed) {
+  //     _cameraBloc.add(CameraOnInitializeEvent());
+  //   }
+  //   super.didChangeAppLifecycleState(state);
+  // }
 
   @override
   Widget build(BuildContext context) {
