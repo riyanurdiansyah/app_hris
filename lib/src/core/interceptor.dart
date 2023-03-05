@@ -1,12 +1,15 @@
 import 'dart:developer';
 import 'package:dio/dio.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 /*
   INI UNTUK INTERCEPT TOKEN
   BISA JUGA UNTUK REFRESH TOKEN KALAU TOKEN EXPIRED
   JIK PAKAI JWT NANTI
 */
-Future dioInterceptor(Dio dio, String token) async {
+Future dioInterceptor(Dio dio) async {
+  final prefs = await SharedPreferences.getInstance();
+  final token = prefs.getString("user_token");
   dio.interceptors.add(
     InterceptorsWrapper(
       onRequest: (

@@ -23,3 +23,14 @@ class UpdateLocationEvent extends AttendanceEvent {
 class CheckPermissionEvent extends AttendanceEvent {}
 
 class FocusLocationEvent extends AttendanceEvent {}
+
+class OnSubmitAttendance extends AttendanceEvent {
+  final File image;
+  final String notes;
+  final String kode;
+  final double latitude;
+  final double longitude;
+
+  const OnSubmitAttendance(
+      this.image, this.notes, this.kode, this.latitude, this.longitude);
+}

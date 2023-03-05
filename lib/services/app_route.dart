@@ -83,45 +83,31 @@ GoRouter router = GoRouter(
             GoRoute(
               path: AppRouteName.clockout,
               name: AppRouteName.clockout,
-              // name: AppRouteName.attendance,
               pageBuilder: (context, state) {
-                Object? object = state.extra;
-                if (object != null && object is File) {
-                  return buildPageWithDefaultTransition(
-                    context: context,
-                    state: state,
-                    child: AttendancePage(
-                      ket: "clockout",
-                      imageFile: object,
-                    ),
-                  );
-                }
+                File? object = state.extra as File;
                 return buildPageWithDefaultTransition(
-                    context: context,
-                    state: state,
-                    child: AttendancePage(ket: "clockout"));
+                  context: context,
+                  state: state,
+                  child: AttendancePage(
+                    ket: "clockout",
+                    imageFile: object,
+                  ),
+                );
               },
             ),
             GoRoute(
               path: AppRouteName.clockin,
               name: AppRouteName.clockin,
-              // name: AppRouteName.attendance,
               pageBuilder: (context, state) {
-                Object? object = state.extra;
-                if (object != null && object is File) {
-                  return buildPageWithDefaultTransition(
-                    context: context,
-                    state: state,
-                    child: AttendancePage(
-                      ket: "clockin",
-                      imageFile: object,
-                    ),
-                  );
-                }
+                File? object = state.extra as File;
                 return buildPageWithDefaultTransition(
-                    context: context,
-                    state: state,
-                    child: AttendancePage(ket: "clockin"));
+                  context: context,
+                  state: state,
+                  child: AttendancePage(
+                    ket: "clockin",
+                    imageFile: object,
+                  ),
+                );
               },
             ),
           ],

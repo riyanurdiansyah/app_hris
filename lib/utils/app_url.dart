@@ -7,3 +7,5 @@ const String signinUrl = "$pathAuthUrl/signin";
 const String menuUrl = "$baseUrl/api/v1/menu";
 
 const String taskByIdUrl = "$baseUrl/api/v1/task";
+
+const String attendanceUrl = "$baseUrl/api/v1/attendance";

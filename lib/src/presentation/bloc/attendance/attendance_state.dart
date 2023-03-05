@@ -23,3 +23,13 @@ class LocationLoadedState extends AttendanceState {
 class LocationFailureState extends AttendanceState {}
 
 class LocationDenyPermissionState extends AttendanceState {}
+
+class SubmitAttendanceLoadingState extends AttendanceState {}
+
+class SubmitAttendanceFailureState extends AttendanceState {
+  final String errorMsg;
+
+  const SubmitAttendanceFailureState(this.errorMsg);
+}
+
+class SubmitAttendanceSuccessState extends AttendanceState {}

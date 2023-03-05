@@ -18,7 +18,7 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
 
   @override
   Future<MenuDTO> getMenu(String token) async {
-    await dioInterceptor(dio, token);
+    await dioInterceptor(dio);
     final response = await dio.get(
       menuUrl,
       options: dioOption(),
@@ -37,7 +37,7 @@ class HomeRemoteDataSourceImpl extends HomeRemoteDataSource {
 
   @override
   Future<TaskDTO> getTaskById(String token, String uuid) async {
-    await dioInterceptor(dio, token);
+    await dioInterceptor(dio);
     final response = await dio.get(
       "$taskByIdUrl/$uuid",
       options: dioOption(),

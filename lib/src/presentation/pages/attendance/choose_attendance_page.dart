@@ -81,7 +81,7 @@ class ChooseAttendancePage extends StatelessWidget {
           backgroundColor: Colors.grey.shade400,
         ),
         overlayStyle: ExpandableFabOverlayStyle(
-          blur: 1,
+          blur: 4,
         ),
         onOpen: () {
           // debugPrint('onOpen');

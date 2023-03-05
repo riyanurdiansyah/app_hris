@@ -16,11 +16,11 @@ class AttendancePage extends StatelessWidget {
   AttendancePage({
     super.key,
     required this.ket,
-    this.imageFile,
+    required this.imageFile,
   });
 
   final String ket;
-  final File? imageFile;
+  final File imageFile;
 
   final _attendanceBloc = AttendanceBloc();
 
@@ -199,6 +199,7 @@ class AttendancePage extends StatelessWidget {
                                 ],
                               ),
                               TextFormField(
+                                controller: _attendanceBloc.tcNotes,
                                 decoration: const InputDecoration(
                                   hintText:
                                       "note: catatan jika memang diperlukan",
@@ -253,7 +254,7 @@ class AttendancePage extends StatelessWidget {
                                         borderRadius: BorderRadius.circular(4),
                                         color: Colors.grey.shade300,
                                         image: DecorationImage(
-                                          image: FileImage(imageFile!),
+                                          image: FileImage(imageFile),
                                           fit: BoxFit.cover,
                                         ),
                                       ),
@@ -266,7 +267,7 @@ class AttendancePage extends StatelessWidget {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        "Ukuran File : ${_attendanceBloc.getFileSize(imageFile!.lengthSync(), 1)}",
+                                        "Ukuran File : ${_attendanceBloc.getFileSize(imageFile.lengthSync(), 1)}",
                                         style: GoogleFonts.poppins(
                                           fontSize: 11,
                                           color: Colors.grey.shade600,
@@ -303,26 +304,41 @@ class AttendancePage extends StatelessWidget {
                               const SizedBox(
                                 height: 20,
                               ),
-                              CustomSlideAction(
-                                outerColor: colorPrimaryDark,
-                                innerColor: Colors.white,
-                                elevation: 0,
-                                height: 50,
-                                sliderButtonIconSize: 15,
-                                borderRadius: 16,
-                                text: ket == "clockin"
-                                    ? "Slide To Clockin"
-                                    : "Slide To Clockout",
-                                textStyle: GoogleFonts.poppins(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.white,
-                                ),
-                                submittedIcon: Icon(
-                                  Icons.alarm_rounded,
-                                  color: colorPrimaryDark,
-                                ),
-                                onSubmit: () {},
+                              BlocBuilder<AttendanceBloc, AttendanceState>(
+                                builder: (context, state) {
+                                  if (state is LocationLoadedState) {
+                                    return CustomSlideAction(
+                                      outerColor: colorPrimaryDark,
+                                      innerColor: Colors.white,
+                                      elevation: 0,
+                                      height: 50,
+                                      sliderButtonIconSize: 15,
+                                      borderRadius: 16,
+                                      text: ket == "clockin"
+                                          ? "Slide To Clockin"
+                                          : "Slide To Clockout",
+                                      textStyle: GoogleFonts.poppins(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w600,
+                                        color: Colors.white,
+                                      ),
+                                      submittedIcon: Icon(
+                                        Icons.alarm_rounded,
+                                        color: colorPrimaryDark,
+                                      ),
+                                      onSubmit: () => _attendanceBloc.add(
+                                        OnSubmitAttendance(
+                                          imageFile,
+                                          _attendanceBloc.tcNotes.text,
+                                          ket,
+                                          state.position.latitude,
+                                          state.position.longitude,
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                  return const SizedBox();
+                                },
                               ),
                               const SizedBox(
                                 height: 20,
