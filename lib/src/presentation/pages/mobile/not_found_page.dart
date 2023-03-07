@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../services/app_route_name.dart';
-import '../../../utils/app_url.dart';
+import '../../../../services/app_route_name.dart';
+import '../../../../utils/app_url.dart';
 
 class NotFoundPage extends StatelessWidget {
   const NotFoundPage({super.key});

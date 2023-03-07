@@ -106,6 +106,7 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
             "Failed connect to server... please try again"));
       }
     }, (data) {
+      _locationSubscription?.cancel();
       emit(SubmitAttendanceSuccessState());
     });
   }

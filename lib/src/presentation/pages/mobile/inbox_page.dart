@@ -1,8 +1,8 @@
-import 'package:app_hris/src/presentation/pages/widgets/inbox_notif.dart';
+import 'package:app_hris/src/presentation/pages/mobile/widgets/inbox_notif.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../utils/app_color.dart';
+import '../../../../utils/app_color.dart';
 
 class InboxPage extends StatelessWidget {
   const InboxPage({super.key});

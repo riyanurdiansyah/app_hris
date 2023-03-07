@@ -1,13 +1,13 @@
 import 'package:android_intent_plus/android_intent.dart';
 import 'package:app_hris/services/app_route_name.dart';
-import 'package:app_hris/src/presentation/pages/attendance/widgets/attendance_card.dart';
+import 'package:app_hris/src/presentation/pages/mobile/attendance/widgets/attendance_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../../utils/app_color.dart';
+import '../../../../../utils/app_color.dart';
 
 class ChooseAttendancePage extends StatelessWidget {
   const ChooseAttendancePage({super.key});

@@ -5,9 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../services/app_route_name.dart';
-import '../../../utils/app_color.dart';
-import '../bloc/home/home_bloc.dart';
+import '../../../../services/app_route_name.dart';
+import '../../../../utils/app_color.dart';
+import '../../bloc/home/home_bloc.dart';
 import 'attendance/widgets/attendance_card.dart';
 
 class HomePage extends StatelessWidget {

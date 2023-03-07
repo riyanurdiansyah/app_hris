@@ -2,7 +2,7 @@ import 'package:app_hris/services/app_route_name.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import '../bloc/welcome/welcome_bloc.dart';
+import '../../bloc/welcome/welcome_bloc.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});

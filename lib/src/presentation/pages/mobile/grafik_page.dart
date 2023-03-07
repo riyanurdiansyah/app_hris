@@ -1,6 +1,6 @@
-import 'package:app_hris/src/presentation/pages/widgets/grafik_all_time.dart';
-import 'package:app_hris/src/presentation/pages/widgets/grafik_monthly.dart';
-import 'package:app_hris/src/presentation/pages/widgets/grafik_weekly.dart';
+import 'package:app_hris/src/presentation/pages/mobile/widgets/grafik_all_time.dart';
+import 'package:app_hris/src/presentation/pages/mobile/widgets/grafik_monthly.dart';
+import 'package:app_hris/src/presentation/pages/mobile/widgets/grafik_weekly.dart';
 import 'package:app_hris/utils/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

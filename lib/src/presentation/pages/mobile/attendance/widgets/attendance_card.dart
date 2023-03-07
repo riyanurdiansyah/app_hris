@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../../../utils/app_color.dart';
+import '../../../../../../utils/app_color.dart';
 
 class AttendanceCard extends StatelessWidget {
   const AttendanceCard({

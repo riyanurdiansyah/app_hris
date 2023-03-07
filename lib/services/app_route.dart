@@ -1,15 +1,16 @@
 import 'dart:io';
 
 import 'package:app_hris/services/app_route_name.dart';
-import 'package:app_hris/src/presentation/pages/attendance/attendance_page.dart';
-import 'package:app_hris/src/presentation/pages/attendance/camera_page.dart';
-import 'package:app_hris/src/presentation/pages/attendance/choose_attendance_page.dart';
-import 'package:app_hris/src/presentation/pages/login_page.dart';
-import 'package:app_hris/src/presentation/pages/main_page.dart';
-import 'package:app_hris/src/presentation/pages/not_found_page.dart';
-import 'package:app_hris/src/presentation/pages/welcome_page.dart';
+import 'package:app_hris/src/presentation/pages/mobile/attendance/attendance_page.dart';
+import 'package:app_hris/src/presentation/pages/mobile/attendance/camera_page.dart';
+import 'package:app_hris/src/presentation/pages/mobile/attendance/choose_attendance_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+
+import '../src/presentation/pages/mobile/login_page.dart';
+import '../src/presentation/pages/mobile/main_page.dart';
+import '../src/presentation/pages/mobile/not_found_page.dart';
+import '../src/presentation/pages/mobile/welcome_page.dart';
 
 CustomTransitionPage buildPageWithDefaultTransition<T>({
   required BuildContext context,
