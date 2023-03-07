@@ -1,6 +1,7 @@
 import 'package:app_hris/src/presentation/bloc/welcome/welcome_bloc.dart';
 import 'package:app_hris/src/presentation/cubit/navbar/navbar_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,6 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'services/app_route.dart';
+import 'services/app_route_web.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -51,9 +53,14 @@ class MyApp extends StatelessWidget {
           ),
           primaryColor: const Color.fromARGB(198, 1, 249, 63),
         ),
-        routeInformationParser: router.routeInformationParser,
-        routeInformationProvider: router.routeInformationProvider,
-        routerDelegate: router.routerDelegate,
+        routeInformationParser: kIsWeb
+            ? routerWeb.routeInformationParser
+            : router.routeInformationParser,
+        routeInformationProvider: kIsWeb
+            ? routerWeb.routeInformationProvider
+            : router.routeInformationProvider,
+        routerDelegate:
+            kIsWeb ? routerWeb.routerDelegate : router.routerDelegate,
         localizationsDelegates: context.localizationDelegates,
         supportedLocales: context.supportedLocales,
         locale: context.locale,

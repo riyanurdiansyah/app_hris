@@ -1,4 +1,4 @@
-import 'package:app_hris/services/app_route_name.dart';
+import 'package:app_hris/services/app_route_name_mobile.dart';
 import 'package:app_hris/src/presentation/bloc/auth/auth_bloc.dart';
 import 'package:app_hris/utils/app_color.dart';
 import 'package:app_hris/utils/app_format_text.dart';
@@ -55,7 +55,7 @@ class _LoginPageState extends State<LoginPage> {
           }
 
           if (state is AuthLoginSuccessState) {
-            context.goNamed(AppRouteName.home);
+            context.goNamed(AppRouteNameMobile.home);
           }
         },
         builder: (context, state) {

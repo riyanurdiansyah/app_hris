@@ -9,6 +9,9 @@ Options dioOption({
     headers: headers ??
         {
           "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "GET,PUT,PATCH,POST,DELETE",
+          "Access-Control-Allow-Headers":
+              "Origin, X-Requested-With, Content-Type, Accept",
         },
     responseType: ResponseType.json,
     sendTimeout: 5000,

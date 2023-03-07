@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../../services/app_route_name.dart';
+import '../../../../services/app_route_name_mobile.dart';
 import '../../../../utils/app_color.dart';
 import '../../bloc/home/home_bloc.dart';
 import 'attendance/widgets/attendance_card.dart';
@@ -71,7 +71,7 @@ class HomePage extends StatelessWidget {
       body: BlocListener<HomeBloc, HomeState>(
         listener: (context, state) {
           if (state is HomeUnAuthorizedState) {
-            context.goNamed(AppRouteName.signin);
+            context.goNamed(AppRouteNameMobile.signin);
           }
         },
         child: Stack(

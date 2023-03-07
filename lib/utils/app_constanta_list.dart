@@ -2,6 +2,8 @@ import 'package:app_hris/src/domain/entities/notif_inbox_content_entity.dart';
 import 'package:app_hris/src/domain/entities/notif_inbox_entity.dart';
 import 'package:app_hris/utils/app_constanta.dart';
 
+import '../src/domain/entities/side_navbar_entity.dart';
+
 List<NotifInboxEntity> listInbox = [
   NotifInboxEntity(
     type: "delegation",
@@ -69,5 +71,28 @@ List<NotifInboxEntity> listInbox = [
       endDate: DateTime.now().toIso8601String(),
       file: "",
     ),
+  ),
+];
+
+List<SideNavbarEntity> listSidebar = [
+  SideNavbarEntity(
+    title: "Home",
+    image: "assets/images/sidebar/home.png",
+    route: "home",
+  ),
+  SideNavbarEntity(
+    title: "Attendance",
+    image: "assets/images/sidebar/attendance.png",
+    route: "attendance",
+  ),
+  SideNavbarEntity(
+    title: "Request",
+    image: "assets/images/sidebar/request.png",
+    route: "request",
+  ),
+  SideNavbarEntity(
+    title: "Profile",
+    image: "assets/images/sidebar/profile.png",
+    route: "profile",
   ),
 ];

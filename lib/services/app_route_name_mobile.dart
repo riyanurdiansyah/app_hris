@@ -1,4 +1,4 @@
-abstract class AppRouteName {
+abstract class AppRouteNameMobile {
   static const welcome = "welcome";
 
   static const signin = "signin";
@@ -7,11 +7,15 @@ abstract class AppRouteName {
 
   static const home = "home";
 
+  static const profile = "profile";
+
+  static const attendance = "attendance";
+
+  static const request = "request";
+
   static const inbox = "inbox";
 
   static const chooseAttendance = "choose-attendance";
-
-  static const attendance = "attendance";
 
   static const cameraClockin = "camera-clockin";
 

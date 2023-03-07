@@ -1,5 +1,5 @@
 import 'package:android_intent_plus/android_intent.dart';
-import 'package:app_hris/services/app_route_name.dart';
+import 'package:app_hris/services/app_route_name_mobile.dart';
 import 'package:app_hris/src/presentation/pages/mobile/attendance/widgets/attendance_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -114,7 +114,7 @@ class ChooseAttendancePage extends StatelessWidget {
                 backgroundColor: colorPrimaryDark.withOpacity(0.6),
                 heroTag: null,
                 child: const Icon(Icons.punch_clock),
-                // onPressed: () => router.pushNamed(AppRouteName.cameraClockout),
+                // onPressed: () => router.pushNamed(AppRouteNameMobile.cameraClockout),
                 onPressed: () {
                   showDialog(
                     context: context,
@@ -158,7 +158,8 @@ class ChooseAttendancePage extends StatelessWidget {
                 backgroundColor: colorPrimaryDark,
                 heroTag: null,
                 child: const Icon(Icons.punch_clock),
-                onPressed: () => router.pushNamed(AppRouteName.cameraClockin),
+                onPressed: () =>
+                    router.pushNamed(AppRouteNameMobile.cameraClockin),
               ),
             ],
           ),

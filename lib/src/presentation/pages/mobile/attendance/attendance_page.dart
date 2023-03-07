@@ -10,7 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../../../../services/app_route_name.dart';
+import '../../../../../services/app_route_name_mobile.dart';
 import 'package:lottie/lottie.dart' as lotie;
 import 'package:latlong2/latlong.dart';
 
@@ -328,11 +328,11 @@ class _AttendancePageState extends State<AttendancePage> {
                                                 onTap: () {
                                                   if (widget.ket == "clockin") {
                                                     router.pushNamed(
-                                                        AppRouteName
+                                                        AppRouteNameMobile
                                                             .cameraClockin);
                                                   } else {
                                                     router.pushNamed(
-                                                        AppRouteName
+                                                        AppRouteNameMobile
                                                             .cameraClockout);
                                                   }
                                                 },

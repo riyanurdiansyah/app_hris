@@ -1,9 +1,10 @@
 import 'dart:io';
 
-import 'package:app_hris/services/app_route_name.dart';
 import 'package:app_hris/src/presentation/pages/mobile/attendance/attendance_page.dart';
 import 'package:app_hris/src/presentation/pages/mobile/attendance/camera_page.dart';
 import 'package:app_hris/src/presentation/pages/mobile/attendance/choose_attendance_page.dart';
+import 'package:app_hris/src/presentation/pages/web/auth/web_login_page.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -11,6 +12,7 @@ import '../src/presentation/pages/mobile/login_page.dart';
 import '../src/presentation/pages/mobile/main_page.dart';
 import '../src/presentation/pages/mobile/not_found_page.dart';
 import '../src/presentation/pages/mobile/welcome_page.dart';
+import 'app_route_name_mobile.dart';
 
 CustomTransitionPage buildPageWithDefaultTransition<T>({
   required BuildContext context,
@@ -39,19 +41,23 @@ GoRouter router = GoRouter(
       path: '/signin',
       name: 'signin',
       builder: (context, state) {
+        if (kIsWeb) {
+          return const WebLoginPage();
+        }
         return const LoginPage();
       },
     ),
     GoRoute(
       path: '/',
-      name: AppRouteName.home,
-      builder: (context, state) {
-        return const MainPage();
+      name: AppRouteNameMobile.home,
+      pageBuilder: (context, state) {
+        return buildPageWithDefaultTransition(
+            context: context, state: state, child: const MainPage());
       },
       routes: [
         GoRoute(
-          path: AppRouteName.attendance,
-          name: AppRouteName.attendance,
+          path: AppRouteNameMobile.attendance,
+          name: AppRouteNameMobile.attendance,
           pageBuilder: (context, state) {
             return buildPageWithDefaultTransition(
                 context: context,
@@ -60,9 +66,9 @@ GoRouter router = GoRouter(
           },
           routes: [
             GoRoute(
-              path: AppRouteName.cameraClockin,
-              name: AppRouteName.cameraClockin,
-              // name: AppRouteName.attendance,
+              path: AppRouteNameMobile.cameraClockin,
+              name: AppRouteNameMobile.cameraClockin,
+              // name: AppRouteNameMobile.attendance,
               pageBuilder: (context, state) {
                 return buildPageWithDefaultTransition(
                     context: context,
@@ -71,9 +77,9 @@ GoRouter router = GoRouter(
               },
             ),
             GoRoute(
-              path: AppRouteName.cameraClockout,
-              name: AppRouteName.cameraClockout,
-              // name: AppRouteName.attendance,
+              path: AppRouteNameMobile.cameraClockout,
+              name: AppRouteNameMobile.cameraClockout,
+              // name: AppRouteNameMobile.attendance,
               pageBuilder: (context, state) {
                 return buildPageWithDefaultTransition(
                     context: context,
@@ -82,8 +88,8 @@ GoRouter router = GoRouter(
               },
             ),
             GoRoute(
-              path: AppRouteName.clockout,
-              name: AppRouteName.clockout,
+              path: AppRouteNameMobile.clockout,
+              name: AppRouteNameMobile.clockout,
               pageBuilder: (context, state) {
                 File? object = state.extra as File;
                 return buildPageWithDefaultTransition(
@@ -97,8 +103,8 @@ GoRouter router = GoRouter(
               },
             ),
             GoRoute(
-              path: AppRouteName.clockin,
-              name: AppRouteName.clockin,
+              path: AppRouteNameMobile.clockin,
+              name: AppRouteNameMobile.clockin,
               pageBuilder: (context, state) {
                 File? object = state.extra as File;
                 return buildPageWithDefaultTransition(

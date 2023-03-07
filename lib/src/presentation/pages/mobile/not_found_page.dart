@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../../services/app_route_name.dart';
+import '../../../../services/app_route_name_mobile.dart';
 import '../../../../utils/app_url.dart';
 
 class NotFoundPage extends StatelessWidget {
@@ -60,7 +60,7 @@ class NotFoundPage extends StatelessWidget {
             style: ElevatedButton.styleFrom(
               backgroundColor: colorPrimaryDark,
             ),
-            onPressed: () => router.replaceNamed(AppRouteName.home),
+            onPressed: () => router.replaceNamed(AppRouteNameMobile.home),
             child: Text(
               "Kembali ke Home",
               style: GoogleFonts.poppins(
