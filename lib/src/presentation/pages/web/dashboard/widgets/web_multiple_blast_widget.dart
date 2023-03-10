@@ -8,8 +8,8 @@ import '../../../../../domain/entities/template_entity.dart';
 import '../../../../bloc/blast/blast_bloc.dart';
 import 'user_data_table.dart';
 
-class MultipleBlastWidget extends StatelessWidget {
-  const MultipleBlastWidget({
+class WebMultipleBlastWidget extends StatelessWidget {
+  const WebMultipleBlastWidget({
     Key? key,
     required BlastBloc blastBloc,
   })  : _blastBloc = blastBloc,
@@ -31,7 +31,6 @@ class MultipleBlastWidget extends StatelessWidget {
           height: 12,
         ),
         TextFormField(
-          controller: _blastBloc.tcMultiple,
           decoration: InputDecoration(
             hintStyle: GoogleFonts.poppins(),
             contentPadding:

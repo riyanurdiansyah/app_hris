@@ -1,16 +1,16 @@
+import 'package:app_hris/src/presentation/pages/web/dashboard/blast/widgets/web_informasi_blast_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../../../utils/app_constanta_list.dart';
-import '../../../../../../utils/app_format_text.dart';
 import '../../../../../../utils/app_text.dart';
 import '../../../../../../utils/app_validator.dart';
 import '../../../../../domain/entities/template_entity.dart';
 import '../../../../bloc/blast/blast_bloc.dart';
 
-class SingleBlastWidget extends StatelessWidget {
-  const SingleBlastWidget({
+class WebSingleBlastWidget extends StatelessWidget {
+  const WebSingleBlastWidget({
     Key? key,
     required BlastBloc blastBloc,
   })  : _blastBloc = blastBloc,
@@ -56,19 +56,20 @@ class SingleBlastWidget extends StatelessWidget {
           height: 12,
         ),
         TextFormField(
-          controller: _blastBloc.tcHP,
-          inputFormatters: [
-            AppPhoneText(),
-          ],
+          // inputFormatters: [
+          //   AppPhoneText(),
+          // ],
           keyboardType: TextInputType.number,
           validator: (val) => AppValidator.checkNumberPhone(val!),
           decoration: InputDecoration(
             hintStyle: GoogleFonts.poppins(),
             contentPadding:
                 const EdgeInsets.symmetric(vertical: 0, horizontal: 12),
-            hintText: "081xxxxxx",
+            hintText: "6281xxxxxx",
             border: const OutlineInputBorder(),
           ),
+          onChanged: (val) =>
+              _blastBloc.add(BlastOnChangeTextFieldEvent("hp", val)),
         ),
         const SizedBox(
           height: 20,
@@ -108,46 +109,10 @@ class SingleBlastWidget extends StatelessWidget {
         const SizedBox(
           height: 35,
         ),
-        Container(
-          width: double.infinity,
-          height: 200,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(4),
-            border: Border.all(
-              color: Colors.grey.shade500,
-            ),
-            color: Colors.grey.shade200,
-          ),
-          child: BlocBuilder<BlastBloc, BlastState>(
-            builder: (context, state) {
-              if (state.imageFile != null) {
-                return Image.memory(
-                  state.imageFile!,
-                  fit: BoxFit.contain,
-                );
-              }
-              return IconButton(
-                onPressed: () => _blastBloc.add(BlastUploadImageEvent()),
-                icon: Icon(
-                  Icons.add_a_photo_rounded,
-                  size: 70,
-                  color: Colors.grey.shade600,
-                ),
-              );
-            },
-          ),
-        ),
-        const SizedBox(
-          height: 35,
-        ),
         BlocBuilder<BlastBloc, BlastState>(
           builder: ((context, state) {
             if (state.template.contains("informasi")) {
-              return Container(
-                height: 80,
-                width: double.infinity,
-                color: Colors.red,
-              );
+              return WebInformasiBlastWidget(blastBloc: _blastBloc);
             }
             if (state.template.contains("invitation")) {
               return Container(
@@ -171,6 +136,9 @@ class SingleBlastWidget extends StatelessWidget {
               Colors.white,
             ),
           ),
+        ),
+        const SizedBox(
+          height: 50,
         ),
       ],
     );

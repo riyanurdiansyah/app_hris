@@ -26,3 +26,10 @@ class BlastOnChangeTypeEvent extends BlastEvent {
 }
 
 class BlastUploadCsvEvent extends BlastEvent {}
+
+class BlastOnChangeTextFieldEvent extends BlastEvent {
+  const BlastOnChangeTextFieldEvent(this.type, this.text);
+
+  final String type;
+  final String text;
+}

@@ -19,3 +19,24 @@ class TranslateAnimation extends StatelessWidget {
     );
   }
 }
+
+class TranslateRightToLeftAnimation extends StatelessWidget {
+  const TranslateRightToLeftAnimation({Key? key, required this.child})
+      : super(key: key);
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return TweenAnimationBuilder<double>(
+      tween: Tween(begin: -20, end: 0),
+      duration: const Duration(seconds: 1),
+      curve: Curves.easeInOut,
+      builder: (context, value, child) => Transform.translate(
+        offset: Offset(-20 * value, 0),
+        child: child,
+      ),
+      child: child,
+    );
+  }
+}

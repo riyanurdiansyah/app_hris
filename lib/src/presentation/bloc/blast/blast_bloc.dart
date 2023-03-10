@@ -31,12 +31,6 @@ class BlastBloc extends Bloc<BlastEvent, BlastState> {
   final TextEditingController _tcToken = TextEditingController();
   TextEditingController get tcToken => _tcToken;
 
-  final TextEditingController _tcHP = TextEditingController();
-  TextEditingController get tcHP => _tcHP;
-
-  final TextEditingController _tcMultiple = TextEditingController();
-  TextEditingController get tcMultiple => _tcMultiple;
-
   final TextEditingController _tcTemplate =
       TextEditingController(text: tokenWA);
   TextEditingController get tcTemplate => _tcTemplate;
@@ -49,6 +43,7 @@ class BlastBloc extends Bloc<BlastEvent, BlastState> {
     on<BlastUploadImageEvent>(_onUploadImage);
     on<BlastUploadCsvEvent>(_onUplaodCsvFile);
     on<BlastOnChangeTypeEvent>(_onChangeType);
+    on<BlastOnChangeTextFieldEvent>(_onChangeTextField);
   }
 
   void _onInitialize(event, emit) async {
@@ -61,16 +56,16 @@ class BlastBloc extends Bloc<BlastEvent, BlastState> {
 
   void _onSendMessage(event, emit) async {
     final body = AppRequestWA.bodyInformasiWithImageTemplate(
-      nomorWA: _tcHP.text,
+      nomorWA: state.hp,
       image:
           "https://prakerja-apps.arkademi.com/wp-content/uploads/2022/12/Menerapkan-Prinsip-Keselamatan-dan-Kesehatan-Kerja-K3-di-Perusahaan-untuk-Ahli-K3-Umum-02.jpg",
-      title: "Psikotest",
-      job: "Sales",
-      date: "Senin, 31 Oktober 2022",
-      time: "08.00",
-      group: "Psikotest Sales",
-      linkGroup: "https://chat.whatsapp.com/",
-      from: "sike.avika@gmail.com",
+      title: state.undangan,
+      job: state.posisi,
+      date: state.hari,
+      time: state.jam,
+      group: state.group,
+      linkGroup: state.linkGroup,
+      from: state.emailPengirim,
     );
     final response = await _usecase.sendMessage(_tcToken.text, body);
     response.fold((fail) => ExceptionHandle.execute(fail), (data) {
@@ -100,7 +95,7 @@ class BlastBloc extends Bloc<BlastEvent, BlastState> {
   }
 
   void _onChangeType(BlastOnChangeTypeEvent event, emit) async {
-    emit(state.copyWith(type: event.type));
+    emit(state.copyWith(type: event.type, template: ""));
   }
 
   void _onUplaodCsvFile(BlastUploadCsvEvent event, emit) async {
@@ -138,6 +133,33 @@ class BlastBloc extends Bloc<BlastEvent, BlastState> {
 
       emit(state.copyWith(
           csvFile: result.files.first.bytes!, listData: listData));
+    }
+  }
+
+  void _onChangeTextField(BlastOnChangeTextFieldEvent event, emit) async {
+    if (event.type == "hp") {
+      emit(state.copyWith(hp: event.text));
+    }
+    if (event.type == "undangan") {
+      emit(state.copyWith(undangan: event.text));
+    }
+    if (event.type == "posisi") {
+      emit(state.copyWith(posisi: event.text));
+    }
+    if (event.type == "hari") {
+      emit(state.copyWith(hari: event.text));
+    }
+    if (event.type == "jam") {
+      emit(state.copyWith(jam: event.text));
+    }
+    if (event.type == "group") {
+      emit(state.copyWith(group: event.text));
+    }
+    if (event.type == "linkgroup") {
+      emit(state.copyWith(linkGroup: event.text));
+    }
+    if (event.type == "pengirim") {
+      emit(state.copyWith(emailPengirim: event.text));
     }
   }
 }
