@@ -8,9 +8,11 @@ class SideNavbar extends StatelessWidget {
   const SideNavbar({
     super.key,
     required this.listMenu,
+    required this.route,
   });
 
   final List<SideNavbarEntity> listMenu;
+  final String route;
 
   @override
   Widget build(BuildContext context) {
@@ -47,8 +49,10 @@ class SideNavbar extends StatelessWidget {
                     children: [
                       Image.asset(
                         listMenu[index].image,
-                        width: 18,
-                        color: Colors.black87,
+                        width: route.contains(listMenu[index].route) ? 18 : 15,
+                        color: route.contains(listMenu[index].route)
+                            ? Colors.blue
+                            : Colors.black54,
                       ),
                       const SizedBox(
                         width: 15,
@@ -56,8 +60,16 @@ class SideNavbar extends StatelessWidget {
                       Text(
                         listMenu[index].title,
                         style: GoogleFonts.poppins(
-                          fontSize: 14,
-                          color: Colors.black87,
+                          fontSize: route.contains(listMenu[index].route)
+                              ? 14.5
+                              : 13.5,
+                          color: route.contains(listMenu[index].route)
+                              ? Colors.blue
+                              : Colors.black54,
+                          letterSpacing: 1.2,
+                          fontWeight: route.contains(listMenu[index].route)
+                              ? FontWeight.w600
+                              : FontWeight.w500,
                         ),
                       )
                     ],

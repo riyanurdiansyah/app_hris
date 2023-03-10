@@ -33,10 +33,13 @@ dependencies:
   cached_network_image: ^3.2.3
   camera: ^0.10.3+2
   cupertino_icons: ^1.0.2
+  data_table_2: ^2.3.10
   dartz: ^0.10.1
   dio: ^4.0.6
   easy_localization: ^3.0.1
   equatable: ^2.0.5
+  excel: ^2.0.1
+  file_picker: ^5.2.5
   fl_chart: ^0.55.2
   flutter:
     sdk: flutter

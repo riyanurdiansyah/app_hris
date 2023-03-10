@@ -1,9 +1,47 @@
 import 'package:app_hris/utils/app_color.dart';
+import 'package:app_hris/utils/app_text.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppDialog {
+  static dialogNoAction({
+    required BuildContext context,
+    required String title,
+    String? text,
+  }) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Center(
+            child: AppText.labelW600(
+              title,
+              16,
+              Colors.black,
+            ),
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextButton(
+                onPressed: () => context.pop(),
+                child: const Text(
+                  'Kembali',
+                  style: TextStyle(
+                    fontSize: 11,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.blue,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   static dialogFailedAttendance({
     required BuildContext context,
     required String title,

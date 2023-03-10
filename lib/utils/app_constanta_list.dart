@@ -1,5 +1,6 @@
 import 'package:app_hris/src/domain/entities/notif_inbox_content_entity.dart';
 import 'package:app_hris/src/domain/entities/notif_inbox_entity.dart';
+import 'package:app_hris/src/domain/entities/template_entity.dart';
 import 'package:app_hris/utils/app_constanta.dart';
 
 import '../src/domain/entities/side_navbar_entity.dart';
@@ -79,20 +80,46 @@ List<SideNavbarEntity> listSidebar = [
     title: "Home",
     image: "assets/images/sidebar/home.png",
     route: "home",
+    role: 99,
   ),
   SideNavbarEntity(
     title: "Attendance",
     image: "assets/images/sidebar/attendance.png",
     route: "attendance",
+    role: 99,
   ),
   SideNavbarEntity(
     title: "Request",
     image: "assets/images/sidebar/request.png",
     route: "request",
+    role: 99,
   ),
   SideNavbarEntity(
     title: "Profile",
     image: "assets/images/sidebar/profile.png",
     route: "profile",
+    role: 99,
   ),
+  SideNavbarEntity(
+    title: "Blast",
+    image: "assets/images/sidebar/whatsapp.png",
+    route: "blast",
+    role: 99,
+  ),
+];
+
+List<TemplateEntity> templateBlast = [
+  const TemplateEntity(
+    name: "Informasi",
+    kode: "informasi",
+  ),
+  const TemplateEntity(
+    name: "Undangan",
+    kode: "invitation",
+  ),
+];
+
+List<String> listBlast = [
+  "Single",
+  "Multiple",
 ];

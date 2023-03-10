@@ -9,6 +9,8 @@ abstract class AppRouteNameMobile {
 
   static const profile = "profile";
 
+  static const blast = "blast";
+
   static const attendance = "attendance";
 
   static const request = "request";

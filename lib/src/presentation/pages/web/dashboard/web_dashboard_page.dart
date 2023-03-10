@@ -21,6 +21,7 @@ class WebDashboardPage extends StatelessWidget {
     return Scaffold(
       drawer: SideNavbar(
         listMenu: listSidebar,
+        route: route,
       ),
       body: Row(
         children: [
@@ -41,6 +42,7 @@ class WebDashboardPage extends StatelessWidget {
                     width: double.infinity,
                     child: SideNavbar(
                       listMenu: listSidebar,
+                      route: route,
                     ),
                   ),
                 ),

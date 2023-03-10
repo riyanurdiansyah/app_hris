@@ -1,5 +1,7 @@
 import 'package:app_hris/services/app_route_name_mobile.dart';
+import 'package:app_hris/src/presentation/pages/web/dashboard/web_blast_page.dart';
 import 'package:app_hris/src/presentation/pages/web/dashboard/web_dashboard_page.dart';
+import 'package:app_hris/src/presentation/pages/web/dashboard/web_home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -66,10 +68,9 @@ GoRouter routerWeb = GoRouter(
               path: AppRouteNameMobile.home,
               name: AppRouteNameMobile.home,
               pageBuilder: (context, state) {
-                return NoTransitionPage(
-                    child: Container(
-                  color: Colors.blue,
-                ));
+                return const NoTransitionPage(
+                  child: WebHomePage(),
+                );
               },
             ),
             GoRoute(
@@ -100,6 +101,13 @@ GoRouter routerWeb = GoRouter(
                     child: Container(
                   color: Colors.green,
                 ));
+              },
+            ),
+            GoRoute(
+              path: AppRouteNameMobile.blast,
+              name: AppRouteNameMobile.blast,
+              pageBuilder: (context, state) {
+                return NoTransitionPage(child: WebBlastPage());
               },
             ),
           ],
