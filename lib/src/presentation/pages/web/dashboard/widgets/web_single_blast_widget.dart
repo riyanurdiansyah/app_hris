@@ -1,4 +1,5 @@
 import 'package:app_hris/src/presentation/pages/web/dashboard/blast/widgets/web_informasi_blast_widget.dart';
+import 'package:app_hris/utils/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -130,6 +131,8 @@ class WebSingleBlastWidget extends StatelessWidget {
           width: double.infinity,
           child: ElevatedButton(
             onPressed: () => _blastBloc.add(BlastSendMessageEvent()),
+            style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(colorPrimaryDark)),
             child: AppText.labelBold(
               "Kirim",
               14,

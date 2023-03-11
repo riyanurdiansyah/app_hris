@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:app_hris/src/core/exception_handling.dart';
@@ -11,8 +12,8 @@ import 'package:app_hris/src/domain/usecases/blast_usecase.dart';
 import 'package:app_hris/utils/app_constanta.dart';
 import 'package:app_hris/utils/app_dialog.dart';
 import 'package:app_hris/utils/app_request_wa.dart';
+import 'package:csv/csv.dart';
 import 'package:equatable/equatable.dart';
-import 'package:excel/excel.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -79,8 +80,12 @@ class BlastBloc extends Bloc<BlastEvent, BlastState> {
   }
 
   void _onChangeTemplate(BlastOnChangeTemplateEvent event, emit) async {
-    _tcTemplate.text = event.template.kode;
-    emit(state.copyWith(template: event.template.kode));
+    if (state.type != "Multiple") {
+      _tcTemplate.text = event.template.kode;
+      emit(state.copyWith(template: event.template.kode));
+    } else {
+      emit(state.copyWith(template: event.template.kode));
+    }
   }
 
   void _onUploadImage(BlastUploadImageEvent event, emit) async {
@@ -100,39 +105,38 @@ class BlastBloc extends Bloc<BlastEvent, BlastState> {
 
   void _onUplaodCsvFile(BlastUploadCsvEvent event, emit) async {
     var result = await FilePicker.platform.pickFiles(
-      allowedExtensions: ["xlsx", "xls"],
+      allowedExtensions: ["csv"],
       type: FileType.custom,
       allowMultiple: false,
     );
 
     if (result != null) {
-      var bytes = result.files.single.bytes;
-      var excel = Excel.decodeBytes(bytes!);
-      List<BlastEntity> listData = <BlastEntity>[];
-      int idx = 0;
-
-      for (var table in excel.tables.keys) {
-        // debugPrint(excel.tables[table]!.maxCols.toString());
-        // debugPrint(excel.tables[table]!.maxRows.toString());
-        for (var row in excel.tables[table]!.rows) {
-          for (int i = 0; i < row.length; i++) {
-            if (row[i]!.props[0].toString().toLowerCase() != "hp" &&
-                row[i]!.props[0].toString().toLowerCase() != "nama") {
-              if (i.isEven) {
-                // listData.insert(idx,
-                //     BlastEntity(nama: row[i]!.props[0].toString(), hp: ""));
-              }
-              if (i.isOdd) {
-                listData[idx].hp = row[i]!.props[0].toString();
-                idx++;
-              }
-            }
-          }
+      final bytes = utf8.decode(result.files.first.bytes!);
+      final rows = const CsvToListConverter().convert(bytes);
+      List<BlastEntity> listTemp = [];
+      for (int i = 0; i < rows.length; i++) {
+        if (rows[i].elementAt(0).toString() != "NAMA") {
+          listTemp.add(
+            BlastEntity(
+              nama: rows[i].elementAt(0).toString(),
+              hp: rows[i].elementAt(1).toString(),
+              posisi: rows[i].elementAt(2).toString(),
+              hari: rows[i].elementAt(3).toString(),
+              jam: rows[i].elementAt(4).toString(),
+              group: rows[i].elementAt(5).toString(),
+              linkGroup: rows[i].elementAt(6).toString(),
+              pengirim: rows[i].elementAt(7).toString(),
+              status: rows[i].elementAt(8).toString(),
+            ),
+          );
         }
       }
 
       emit(state.copyWith(
-          csvFile: result.files.first.bytes!, listData: listData));
+        csvFile: result.files.first.bytes!,
+        listData: listTemp,
+        showPreview: true,
+      ));
     }
   }
 

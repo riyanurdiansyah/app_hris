@@ -35,7 +35,7 @@ class UserDataTableSource extends DataTableSource {
         ),
         DataCell(
           Text(
-            "",
+            item.posisi,
             style: GoogleFonts.poppins(
               fontSize: 12,
               color: Colors.grey.shade600,
@@ -45,7 +45,37 @@ class UserDataTableSource extends DataTableSource {
         ),
         DataCell(
           Text(
-            "",
+            item.hari,
+            style: GoogleFonts.poppins(
+              fontSize: 12,
+              color: Colors.grey.shade600,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
+        DataCell(
+          Text(
+            item.jam,
+            style: GoogleFonts.poppins(
+              fontSize: 12,
+              color: Colors.grey.shade600,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
+        DataCell(
+          Text(
+            item.group,
+            style: GoogleFonts.poppins(
+              fontSize: 12,
+              color: Colors.grey.shade600,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
+        DataCell(
+          Text(
+            item.linkGroup,
             style: GoogleFonts.poppins(
               fontSize: 12,
               color: Colors.grey.shade600,
@@ -56,6 +86,16 @@ class UserDataTableSource extends DataTableSource {
         DataCell(
           Text(
             item.hp,
+            style: GoogleFonts.poppins(
+              fontSize: 12,
+              color: Colors.grey.shade600,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
+        DataCell(
+          Text(
+            item.status,
             style: GoogleFonts.poppins(
               fontSize: 12,
               color: Colors.grey.shade600,

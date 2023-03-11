@@ -6,8 +6,8 @@ import '../../../../../../../utils/app_text.dart';
 import '../../../../../bloc/blast/blast_bloc.dart';
 import '../../../../mobile/attendance/widgets/translate_animation.dart';
 
-class WebInformasiBlastWidget extends StatelessWidget {
-  const WebInformasiBlastWidget({
+class WebPreviewBlastWidget extends StatelessWidget {
+  const WebPreviewBlastWidget({
     Key? key,
   }) : super(key: key);
 

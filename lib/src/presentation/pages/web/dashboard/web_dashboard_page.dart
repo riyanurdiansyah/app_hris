@@ -19,6 +19,7 @@ class WebDashboardPage extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     final router = GoRouter.of(context);
     return Scaffold(
+      backgroundColor: backgroundGrey.withOpacity(0.4),
       drawer: SideNavbar(
         listMenu: listSidebar,
         route: route,
@@ -27,28 +28,37 @@ class WebDashboardPage extends StatelessWidget {
         children: [
           Expanded(
             flex: 1,
-            child: Column(
-              children: [
-                SizedBox(
-                  height: size.height / 8,
-                  child: const Center(
-                    child: Text("ADMIN"),
-                  ),
-                ),
-                Expanded(
-                  child: Container(
-                    margin: const EdgeInsets.only(top: 20),
-                    color: colorPrimary,
-                    width: double.infinity,
-                    child: SideNavbar(
-                      listMenu: listSidebar,
-                      route: route,
-                    ),
-                  ),
-                ),
-              ],
+            child: Container(
+              color: backgroundGrey,
+              child: SideNavbar(
+                listMenu: listSidebar,
+                route: route,
+              ),
             ),
           ),
+          // Expanded(
+          //   flex: 1,
+          //   child: Container(
+          //     color: Colors.red,
+          //     child: Column(
+          //       children: [
+
+          //         Expanded(
+          //           child: Container(
+          //             height: size.height * 0.8,
+          //             margin: const EdgeInsets.only(top: 20),
+          //             color: backgroundGrey.withOpacity(0.4),
+          //             width: double.infinity,
+          //             child: SideNavbar(
+          //               listMenu: listSidebar,
+          //               route: route,
+          //             ),
+          //           ),
+          //         ),
+          //       ],
+          //     ),
+          //   ),
+          // ),
           Expanded(
             flex: 5,
             child: widget,

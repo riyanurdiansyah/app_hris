@@ -113,10 +113,10 @@ List<TemplateEntity> templateBlast = [
     name: "Informasi",
     kode: "informasi",
   ),
-  const TemplateEntity(
-    name: "Undangan",
-    kode: "invitation",
-  ),
+  // const TemplateEntity(
+  //   name: "Undangan",
+  //   kode: "invitation",
+  // ),
 ];
 
 List<String> listBlast = [

@@ -7,14 +7,15 @@ class BlastState extends Equatable {
     this.imageFile,
     this.csvFile,
     this.listData,
-    this.undangan = "",
+    this.undangan = "{{1}}",
     this.hp = "",
-    this.posisi = "",
-    this.hari = "",
-    this.jam = "",
-    this.group = "",
-    this.linkGroup = "",
-    this.emailPengirim = "",
+    this.posisi = "{{2}}",
+    this.hari = "{{3}}",
+    this.jam = "{{4}}",
+    this.group = "{{5}}",
+    this.linkGroup = "{{6}}",
+    this.emailPengirim = "{{7}}",
+    this.showPreview = false,
   });
 
   final String template;
@@ -30,6 +31,7 @@ class BlastState extends Equatable {
   final Uint8List? imageFile;
   final Uint8List? csvFile;
   final List<BlastEntity>? listData;
+  final bool showPreview;
 
   BlastState copyWith({
     String? template,
@@ -45,6 +47,7 @@ class BlastState extends Equatable {
     String? linkGroup,
     String? emailPengirim,
     String? hp,
+    bool? showPreview,
   }) {
     return BlastState(
       template: template ?? this.template,
@@ -60,6 +63,7 @@ class BlastState extends Equatable {
       emailPengirim: emailPengirim ?? this.emailPengirim,
       hp: hp ?? this.hp,
       hari: hari ?? this.hari,
+      showPreview: showPreview ?? this.showPreview,
     );
   }
 
