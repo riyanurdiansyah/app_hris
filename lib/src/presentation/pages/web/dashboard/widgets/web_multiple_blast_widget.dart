@@ -65,118 +65,134 @@ class WebMultipleBlastWidget extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(
-            height: 20,
-          ),
           BlocBuilder<BlastBloc, BlastState>(
             builder: (context, state) {
               if (state.listData == null) {
                 return const SizedBox();
               }
-              return PaginatedDataTable(
-                rowsPerPage: 5,
-                arrowHeadColor: colorPrimaryDark,
-                columns: [
-                  DataColumn(
-                    label: Expanded(
-                      child: Text(
-                        "Nama",
-                        style: GoogleFonts.poppins(
-                          fontSize: 12,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
+              return Column(
+                children: [
+                  const SizedBox(
+                    height: 20,
                   ),
-                  DataColumn(
-                    label: Expanded(
-                      child: Text(
-                        "Posisi",
-                        style: GoogleFonts.poppins(
-                          fontSize: 12,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
+                  PaginatedDataTable(
+                    rowsPerPage: 5,
+                    arrowHeadColor: colorPrimaryDark,
+                    columns: [
+                      DataColumn(
+                        label: Expanded(
+                          child: Text(
+                            "Nama",
+                            style: GoogleFonts.poppins(
+                              fontSize: 12,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                  ),
-                  DataColumn(
-                    label: Expanded(
-                      child: Text(
-                        "Hari",
-                        style: GoogleFonts.poppins(
-                          fontSize: 12,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
+                      DataColumn(
+                        label: Expanded(
+                          child: Text(
+                            "Posisi",
+                            style: GoogleFonts.poppins(
+                              fontSize: 12,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                  ),
-                  DataColumn(
-                    label: Expanded(
-                      child: Text(
-                        "Jam",
-                        style: GoogleFonts.poppins(
-                          fontSize: 12,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
+                      DataColumn(
+                        label: Expanded(
+                          child: Text(
+                            "Hari",
+                            style: GoogleFonts.poppins(
+                              fontSize: 12,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                  ),
-                  DataColumn(
-                    label: Expanded(
-                      child: Text(
-                        "Group",
-                        style: GoogleFonts.poppins(
-                          fontSize: 12,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
+                      DataColumn(
+                        label: Expanded(
+                          child: Text(
+                            "Jam",
+                            style: GoogleFonts.poppins(
+                              fontSize: 12,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                  ),
-                  DataColumn(
-                    label: Expanded(
-                      child: Text(
-                        "Link Group",
-                        style: GoogleFonts.poppins(
-                          fontSize: 12,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
+                      DataColumn(
+                        label: Expanded(
+                          child: Text(
+                            "Group",
+                            style: GoogleFonts.poppins(
+                              fontSize: 12,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                  ),
-                  DataColumn(
-                    label: Expanded(
-                      child: Text(
-                        "No Whatsapp",
-                        style: GoogleFonts.poppins(
-                          fontSize: 12,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
+                      DataColumn(
+                        label: Expanded(
+                          child: Text(
+                            "Link Group",
+                            style: GoogleFonts.poppins(
+                              fontSize: 12,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                  ),
-                  DataColumn(
-                    label: Expanded(
-                      child: Text(
-                        "Status",
-                        style: GoogleFonts.poppins(
-                          fontSize: 12,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
+                      DataColumn(
+                        label: Expanded(
+                          child: Text(
+                            "No Whatsapp",
+                            style: GoogleFonts.poppins(
+                              fontSize: 12,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ),
                       ),
+                      DataColumn(
+                        label: Expanded(
+                          child: Text(
+                            "Undangan",
+                            style: GoogleFonts.poppins(
+                              fontSize: 12,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                      DataColumn(
+                        label: Expanded(
+                          child: Text(
+                            "Status",
+                            style: GoogleFonts.poppins(
+                              fontSize: 12,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                    source: UserDataTableSource(
+                      userData: state.listData ?? [],
                     ),
                   ),
                 ],
-                source: UserDataTableSource(
-                  userData: state.listData ?? [],
-                ),
               );
             },
           ),
@@ -219,35 +235,28 @@ class WebMultipleBlastWidget extends StatelessWidget {
           const SizedBox(
             height: 35,
           ),
-          // BlocBuilder<BlastBloc, BlastState>(
-          //   builder: ((context, state) {
-          //     if (state.template.contains("informasi")) {
-          //       return WebInformasiBlastWidget(blastBloc: _blastBloc);
-          //     }
-          //     if (state.template.contains("invitation")) {
-          //       return Container(
-          //         width: double.infinity,
-          //         height: 80,
-          //         color: Colors.blue,
-          //       );
-          //     }
-
-          //     return const SizedBox();
-          //   }),
-          // ),
-          SizedBox(
-            height: 45,
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: () => _blastBloc.add(BlastSendMessageEvent()),
-              style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(colorPrimaryDark)),
-              child: AppText.labelBold(
-                "Kirim",
-                14,
-                Colors.white,
-              ),
-            ),
+          BlocBuilder<BlastBloc, BlastState>(
+            builder: (context, state) {
+              return SizedBox(
+                height: 45,
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () => _blastBloc.add(
+                    BlastSendMultipleMessageEvent(
+                      listData: state.listData ?? [],
+                    ),
+                  ),
+                  style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all(colorPrimaryDark)),
+                  child: AppText.labelBold(
+                    "Kirim",
+                    14,
+                    Colors.white,
+                  ),
+                ),
+              );
+            },
           ),
           const SizedBox(
             height: 50,

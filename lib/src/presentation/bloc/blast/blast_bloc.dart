@@ -45,6 +45,7 @@ class BlastBloc extends Bloc<BlastEvent, BlastState> {
     on<BlastUploadCsvEvent>(_onUplaodCsvFile);
     on<BlastOnChangeTypeEvent>(_onChangeType);
     on<BlastOnChangeTextFieldEvent>(_onChangeTextField);
+    on<BlastSendMultipleMessageEvent>(_onSendMultipleMessage);
   }
 
   void _onInitialize(event, emit) async {
@@ -126,7 +127,8 @@ class BlastBloc extends Bloc<BlastEvent, BlastState> {
               group: rows[i].elementAt(5).toString(),
               linkGroup: rows[i].elementAt(6).toString(),
               pengirim: rows[i].elementAt(7).toString(),
-              status: rows[i].elementAt(8).toString(),
+              undangan: rows[i].elementAt(8).toString(),
+              status: rows[i].elementAt(9).toString(),
             ),
           );
         }
@@ -164,6 +166,33 @@ class BlastBloc extends Bloc<BlastEvent, BlastState> {
     }
     if (event.type == "pengirim") {
       emit(state.copyWith(emailPengirim: event.text));
+    }
+  }
+
+  void _onSendMultipleMessage(BlastSendMultipleMessageEvent event, emit) async {
+    for (int i = 0; i < event.listData.length; i++) {
+      final body = AppRequestWA.bodyInformasiWithImageTemplate(
+        nomorWA: event.listData[i].hp,
+        image:
+            "https://prakerja-apps.arkademi.com/wp-content/uploads/2022/12/Menerapkan-Prinsip-Keselamatan-dan-Kesehatan-Kerja-K3-di-Perusahaan-untuk-Ahli-K3-Umum-02.jpg",
+        title: event.listData[i].undangan,
+        job: event.listData[i].posisi,
+        date: event.listData[i].hari,
+        time: event.listData[i].jam,
+        group: event.listData[i].group,
+        linkGroup: event.listData[i].linkGroup,
+        from: event.listData[i].pengirim,
+      );
+      final response = await _usecase.sendMessage(_tcToken.text, body);
+      response.fold((fail) => ExceptionHandle.execute(fail), (data) {
+        if (data) {}
+      });
+      if (i == event.listData.length - 1) {
+        AppDialog.dialogNoAction(
+          context: globalKey.currentContext!,
+          title: "Pesan berhasil dikirim",
+        );
+      }
     }
   }
 }

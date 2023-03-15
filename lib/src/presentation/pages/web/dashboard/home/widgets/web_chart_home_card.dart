@@ -9,11 +9,11 @@ class WebChartHomeCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<RekapAttendanceDivision> listData = [
-      RekapAttendanceDivision(attendance: 25, divisi: "Academic"),
-      RekapAttendanceDivision(attendance: 13, divisi: "Tech"),
-      RekapAttendanceDivision(attendance: 10, divisi: "Product"),
-      RekapAttendanceDivision(attendance: 12, divisi: "HR"),
-      RekapAttendanceDivision(attendance: 17, divisi: "Finance"),
+      RekapAttendanceDivision(attendance: 25, divisi: "Academic", ontime: 20),
+      RekapAttendanceDivision(attendance: 13, divisi: "Tech", ontime: 13),
+      RekapAttendanceDivision(attendance: 10, divisi: "Product", ontime: 9),
+      RekapAttendanceDivision(attendance: 12, divisi: "HR", ontime: 6),
+      RekapAttendanceDivision(attendance: 17, divisi: "Finance", ontime: 15),
     ];
 
     return SfCartesianChart(
@@ -40,7 +40,7 @@ class WebChartHomeCard extends StatelessWidget {
           name: "Kehadiran",
           dataSource: listData,
           xValueMapper: (data, index) => data.divisi,
-          yValueMapper: (data, index) => data.attendance,
+          yValueMapper: (data, index) => data.ontime,
           color: colorPrimaryDark,
           dataLabelSettings: DataLabelSettings(
             isVisible: true,
@@ -69,8 +69,10 @@ class RekapAttendanceDivision {
   RekapAttendanceDivision({
     required this.divisi,
     required this.attendance,
+    required this.ontime,
   });
 
   final String divisi;
   final int attendance;
+  final int ontime;
 }

@@ -47,7 +47,6 @@ class _WebHomePageState extends State<WebHomePage> {
                 WebRekapHomeCard(),
                 BlocBuilder<HomeBloc, HomeState>(
                   builder: (context, state) {
-                    debugPrint("CEK : ${state.isShowHadirToday}");
                     if (state.isShowHadirToday == true) {
                       return Container(
                         height: 200,

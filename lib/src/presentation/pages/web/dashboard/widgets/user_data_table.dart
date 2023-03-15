@@ -95,6 +95,16 @@ class UserDataTableSource extends DataTableSource {
         ),
         DataCell(
           Text(
+            item.undangan,
+            style: GoogleFonts.poppins(
+              fontSize: 12,
+              color: Colors.grey.shade600,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
+        DataCell(
+          Text(
             item.status,
             style: GoogleFonts.poppins(
               fontSize: 12,

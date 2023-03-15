@@ -123,3 +123,9 @@ List<String> listBlast = [
   "Single",
   "Multiple",
 ];
+
+List<String> listProfile = [
+  "Personal",
+  "Pekerjaan",
+  "Payroll",
+];

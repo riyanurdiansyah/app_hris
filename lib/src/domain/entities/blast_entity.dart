@@ -8,6 +8,7 @@ class BlastEntity {
     required this.jam,
     required this.group,
     required this.linkGroup,
+    required this.undangan,
     required this.pengirim,
   });
 
@@ -19,16 +20,6 @@ class BlastEntity {
   String group;
   String linkGroup;
   String pengirim;
+  String undangan;
   String status;
-
-  // BlastEntity copyWith({
-  //   String? nama,
-  //   String? hp,
-  //   String
-  // }) {
-  //   return BlastEntity(
-  //     nama: nama ?? this.nama,
-  //     hp: hp ?? this.hp,
-  //   );
-  // }
 }

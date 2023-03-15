@@ -15,7 +15,7 @@ class WebRekapHomeCard extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 14),
       width: double.infinity,
-      height: 150,
+      height: 125,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),

@@ -32,6 +32,7 @@ class _WebBlastPageState extends State<WebBlastPage> {
     return BlocProvider<BlastBloc>(
       create: (_) => _blastBloc,
       child: Scaffold(
+        key: _blastBloc.globalKey,
         body: Row(
           children: [
             Expanded(

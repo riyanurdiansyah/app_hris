@@ -17,6 +17,12 @@ class BlastOnChangeTemplateEvent extends BlastEvent {
 
 class BlastSendMessageEvent extends BlastEvent {}
 
+class BlastSendMultipleMessageEvent extends BlastEvent {
+  const BlastSendMultipleMessageEvent({required this.listData});
+
+  final List<BlastEntity> listData;
+}
+
 class BlastUploadImageEvent extends BlastEvent {}
 
 class BlastOnChangeTypeEvent extends BlastEvent {

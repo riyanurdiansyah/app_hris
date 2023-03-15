@@ -1,6 +1,6 @@
 {
-    "name": "app_hris",
-    "short_name": "app_hris",
+    "name": "xHRIS 4.0",
+    "short_name": "xHRIS 4.0",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

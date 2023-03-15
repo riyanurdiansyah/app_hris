@@ -67,15 +67,49 @@ class WebHeader extends StatelessWidget {
               children: [
                 Center(
                   child: Badge(
-                    badgeContent: AppText.labelW700(
-                      "3",
-                      10,
-                      Colors.white,
+                    stackFit: StackFit.passthrough,
+                    badgeContent: Padding(
+                      padding: const EdgeInsets.only(top: 2),
+                      child: AppText.labelW700(
+                        "3",
+                        12.5,
+                        Colors.white,
+                      ),
                     ),
-                    child: Icon(
-                      Icons.notifications_rounded,
-                      size: 35,
-                      color: Colors.grey.shade400,
+                    child: PopupMenuButton(
+                      tooltip: "Notif",
+                      offset: const Offset(0, 40),
+                      icon: const Icon(
+                        Icons.notifications_rounded,
+                        size: 28,
+                      ),
+                      itemBuilder: (_) => [
+                        PopupMenuItem(
+                          child: Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  AppText.labelW600(
+                                    "Notif",
+                                    14,
+                                    Colors.black,
+                                  ),
+                                  TextButton(
+                                    onPressed: () {},
+                                    child: AppText.labelW500(
+                                      "Lihat Semua",
+                                      12,
+                                      Colors.blue,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
