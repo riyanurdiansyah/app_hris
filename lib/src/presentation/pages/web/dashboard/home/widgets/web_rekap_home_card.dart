@@ -1,11 +1,14 @@
+import 'package:app_hris/src/presentation/bloc/home/home_bloc.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../../../utils/app_text.dart';
 
 class WebRekapHomeCard extends StatelessWidget {
-  const WebRekapHomeCard({
+  WebRekapHomeCard({
     Key? key,
   }) : super(key: key);
+
+  final _homeBloc = HomeBloc();
 
   @override
   Widget build(BuildContext context) {
@@ -20,45 +23,49 @@ class WebRekapHomeCard extends StatelessWidget {
       child: Row(
         children: [
           Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset(
-                      "assets/images/web/home/attendance.png",
-                      width: 18,
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 5),
-                      child: AppText.labelBold(
-                        "Hadir",
-                        14,
-                        Colors.black,
+            child: InkWell(
+              onTap: () =>
+                  _homeBloc.add(const HomeOnTapRekapCardEvent("hadir")),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        "assets/images/web/home/attendance.png",
+                        width: 18,
                       ),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    AppText.labelW600(
-                      "50",
-                      36,
-                      Colors.grey.shade600,
-                    ),
-                    AppText.labelW500(
-                      "/55",
-                      12,
-                      Colors.grey.shade600,
-                    ),
-                  ],
-                )
-              ],
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 5),
+                        child: AppText.labelBold(
+                          "Hadir",
+                          14,
+                          Colors.black,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      AppText.labelW600(
+                        "50",
+                        36,
+                        Colors.grey.shade600,
+                      ),
+                      AppText.labelW500(
+                        "/55",
+                        12,
+                        Colors.grey.shade600,
+                      ),
+                    ],
+                  )
+                ],
+              ),
             ),
           ),
           const Padding(

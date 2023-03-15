@@ -27,6 +27,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<HomeGetMenuEvent>(_onGetMenu);
     on<HomeGetTasksEvent>(_onGetTask);
     on<HomeEvent>((event, emit) {});
+    on<HomeInitialEvent>((event, emit) {});
+    on<HomeOnTapRekapCardEvent>(_onTapRekap);
   }
 
   void _onSetup(event, emit) async {
@@ -74,5 +76,40 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       emit(state.copyWith(isLoadingMenu: false, menu: data));
       return;
     });
+  }
+
+  void _onTapRekap(HomeOnTapRekapCardEvent event, emit) async {
+    emit(state.copyWith(isShowHadirToday: true));
+    // if (event.kode == "hadir") {
+    //   debugPrint("MASUKKK");
+    //   emit(state.copyWith(
+    //     isShowHadirToday: true,
+    //     isShowKehadiran: false,
+    //     isShowOnTime: false,
+    //     isShowRequest: false,
+    //   ));
+    // } else if (event.kode == "request") {
+    //   emit(state.copyWith(
+    //     isShowHadirToday: false,
+    //     isShowKehadiran: false,
+    //     isShowOnTime: false,
+    //     isShowRequest: true,
+    //   ));
+    // } else if (event.kode == "kehadiran") {
+    //   emit(state.copyWith(
+    //     isShowHadirToday: false,
+    //     isShowKehadiran: true,
+    //     isShowOnTime: false,
+    //     isShowRequest: false,
+    //   ));
+    // } else {
+    //   emit(state.copyWith(
+    //     isShowHadirToday: false,
+    //     isShowKehadiran: false,
+    //     isShowOnTime: true,
+    //     isShowRequest: false,
+    //   ));
+    // }
+    // debugPrint("MASUKKK ${state.isShowHadirToday}");
   }
 }

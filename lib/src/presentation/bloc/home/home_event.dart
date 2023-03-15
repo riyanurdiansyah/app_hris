@@ -1,11 +1,13 @@
 part of 'home_bloc.dart';
 
-abstract class HomeEvent extends Equatable {
+class HomeEvent extends Equatable {
   const HomeEvent();
 
   @override
   List<Object> get props => [];
 }
+
+class HomeInitialEvent extends HomeEvent {}
 
 class GrafikTabTappedEvent extends HomeEvent {
   final int currentIndex;
@@ -21,3 +23,9 @@ class HomeSetupEvent extends HomeEvent {}
 class HomeGetMenuEvent extends HomeEvent {}
 
 class HomeGetTasksEvent extends HomeEvent {}
+
+class HomeOnTapRekapCardEvent extends HomeEvent {
+  const HomeOnTapRekapCardEvent(this.kode);
+
+  final String kode;
+}
