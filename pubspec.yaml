@@ -82,6 +82,7 @@ flutter:
     - assets/images/
     - assets/images/sidebar/
     - assets/images/web/home/
+    - assets/images/web/request/
     - assets/json/
     - assets/languages/
   # To add assets to your application, add an assets section, like this:

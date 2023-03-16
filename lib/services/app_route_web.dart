@@ -9,6 +9,7 @@ import 'package:go_router/go_router.dart';
 import '../src/presentation/pages/mobile/not_found_page.dart';
 import '../src/presentation/pages/mobile/welcome_page.dart';
 import '../src/presentation/pages/web/auth/web_login_page.dart';
+import '../src/presentation/pages/web/dashboard/request/web_request_page.dart';
 
 final rootNavigatorKey = GlobalKey<NavigatorState>();
 final shellNavigatorKey = GlobalKey<NavigatorState>();
@@ -88,19 +89,14 @@ GoRouter routerWeb = GoRouter(
               path: AppRouteNameMobile.request,
               name: AppRouteNameMobile.request,
               pageBuilder: (context, state) {
-                return NoTransitionPage(
-                    child: Container(
-                  color: Colors.red,
-                ));
+                return const NoTransitionPage(child: WebRequestPage());
               },
             ),
             GoRoute(
               path: AppRouteNameMobile.profile,
               name: AppRouteNameMobile.profile,
               pageBuilder: (context, state) {
-                return const NoTransitionPage(
-                  child: WebProfilePage(),
-                );
+                return const NoTransitionPage(child: WebProfilePage());
               },
             ),
             GoRoute(
