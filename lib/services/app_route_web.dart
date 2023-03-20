@@ -1,4 +1,5 @@
 import 'package:app_hris/services/app_route_name_mobile.dart';
+import 'package:app_hris/src/presentation/pages/web/dashboard/attendance/web_attendance_page.dart';
 import 'package:app_hris/src/presentation/pages/web/dashboard/blast/web_blast_page.dart';
 import 'package:app_hris/src/presentation/pages/web/dashboard/profile/web_profile_page.dart';
 import 'package:app_hris/src/presentation/pages/web/dashboard/web_dashboard_page.dart';
@@ -79,10 +80,7 @@ GoRouter routerWeb = GoRouter(
               path: AppRouteNameMobile.attendance,
               name: AppRouteNameMobile.attendance,
               pageBuilder: (context, state) {
-                return NoTransitionPage(
-                    child: Container(
-                  color: Colors.blue,
-                ));
+                return const NoTransitionPage(child: WebAttendancePage());
               },
             ),
             GoRoute(

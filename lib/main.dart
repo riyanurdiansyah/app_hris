@@ -1,6 +1,6 @@
 import 'package:app_hris/src/presentation/bloc/welcome/welcome_bloc.dart';
 import 'package:app_hris/src/presentation/cubit/navbar/navbar_cubit.dart';
-import 'package:easy_localization/easy_localization.dart';
+// import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -13,17 +13,18 @@ import 'services/app_route_web.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await EasyLocalization.ensureInitialized();
-  runApp(
-    EasyLocalization(
-      supportedLocales: const [
-        Locale('en', 'US'),
-        Locale('id', 'ID'),
-      ],
-      path: 'assets/languages',
-      child: const MyApp(),
-    ),
-  );
+  runApp(const MyApp());
+  // await EasyLocalization.ensureInitialized();
+  // runApp(
+  //   EasyLocalization(
+  //     supportedLocales: const [
+  //       Locale('en', 'US'),
+  //       Locale('id', 'ID'),
+  //     ],
+  //     path: 'assets/languages',
+  //     child: const MyApp(),
+  //   ),
+  // );
 }
 
 class MyApp extends StatelessWidget {
@@ -61,9 +62,9 @@ class MyApp extends StatelessWidget {
             : router.routeInformationProvider,
         routerDelegate:
             kIsWeb ? routerWeb.routerDelegate : router.routerDelegate,
-        localizationsDelegates: context.localizationDelegates,
-        supportedLocales: context.supportedLocales,
-        locale: context.locale,
+        // localizationsDelegates: context.localizationDelegates,
+        // supportedLocales: context.supportedLocales,
+        // locale: context.locale,
         debugShowCheckedModeBanner: false,
         title: "HRIS",
       ),

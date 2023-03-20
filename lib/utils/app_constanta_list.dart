@@ -3,6 +3,7 @@ import 'package:app_hris/src/domain/entities/notif_inbox_entity.dart';
 import 'package:app_hris/src/domain/entities/template_entity.dart';
 import 'package:app_hris/utils/app_constanta.dart';
 
+import '../src/domain/entities/rekap_attendance_entity.dart';
 import '../src/domain/entities/side_navbar_entity.dart';
 
 List<NotifInboxEntity> listInbox = [
@@ -129,3 +130,51 @@ List<String> listProfile = [
   "Pekerjaan",
   "Payroll",
 ];
+
+RekapAttendanceEntity listRekap = RekapAttendanceEntity(
+  message: "Data has been listed",
+  data: [
+    UserRekapAttendanceEntity(
+      userId: "1",
+      userName: "Riyan Nurdiansyah",
+      userAbsensi: [
+        AbsenRekapAttendanceEntity(
+          clockin: DateTime.now().toIso8601String(),
+          clockout: "",
+          noteClockin: "",
+          noteClockout: "",
+        ),
+        const AbsenRekapAttendanceEntity(
+          clockin: "",
+          clockout: "",
+          noteClockin: "",
+          noteClockout: "",
+        )
+      ],
+    ),
+    UserRekapAttendanceEntity(
+      userId: "2",
+      userName: "Sike Avika",
+      userAbsensi: [
+        AbsenRekapAttendanceEntity(
+          clockin:
+              DateTime.now().add(const Duration(hours: 4)).toIso8601String(),
+          clockout: "",
+          noteClockin: "",
+          noteClockout: "",
+        ),
+        const AbsenRekapAttendanceEntity(
+          clockin: "",
+          clockout: "",
+          noteClockin: "",
+          noteClockout: "",
+        )
+      ],
+    ),
+    const UserRekapAttendanceEntity(
+      userId: "3",
+      userName: "Riyan Avika",
+      userAbsensi: [],
+    ),
+  ],
+);

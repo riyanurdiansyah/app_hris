@@ -7,11 +7,12 @@ import 'package:app_hris/src/data/repositories/attendance_repository_impl.dart';
 import 'package:app_hris/src/domain/usecases/attendance_usecase.dart';
 import 'package:app_hris/utils/app_constanta_empty.dart';
 import 'package:dio/dio.dart';
-import 'package:easy_localization/easy_localization.dart';
+// import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:intl/intl.dart';
 // import 'package:geolocator/geolocator.dart';
 import 'package:location/location.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -29,12 +30,9 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
 
   late SharedPreferences _prefs;
 
-  // late Timer timer;
-
   UserLocationEntity _userLocation =
       const UserLocationEntity(latitude: 0, longitude: 0);
 
-  // AppLocationService? _locationService;
   Location location = Location();
   final StreamController<UserLocationEntity> locationController =
       StreamController<UserLocationEntity>.broadcast();
@@ -64,8 +62,6 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
 
   @override
   Future<void> close() {
-    debugPrint("KE DISPOSE");
-    // timer.cancel();
     tcNotes.dispose();
     _locationSubscription!.cancel();
     locationController.close();
@@ -111,15 +107,7 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
     });
   }
 
-  void _onFocusLocation(event, emit) async {
-    // final position = await _locationService!.getCurrentLocation();
-    // if (position != null) {
-    //   mapController = MapController();
-    //   // if (mapController != null) {
-    //   mapController!.move(LatLng(position.latitude, position.longitude), 18);
-    //   // }
-    // }
-  }
+  void _onFocusLocation(event, emit) async {}
 
   void _onLoadLocation(event, emit) async {
     _locationSubscription?.cancel();
@@ -145,19 +133,6 @@ class AttendanceBloc extends Bloc<AttendanceEvent, AttendanceState> {
   }
 
   void _onCheckPermission(event, emit) async {
-    // locate.requestPermission().then((granted) {
-    //   if (granted == loc.PermissionStatus.granted) {
-    //     debugPrint("CEKCOK");
-    //     _locationSubscription = locate.onLocationChanged.listen((locationData) {
-    //       debugPrint("CEKCOK : ${locationData.latitude}");
-    //     });
-    //   } else {
-    //     debugPrint("CEKCOK 2");
-    //   }
-    // });
-
-    // if (await location.serviceEnabled()) {}
-
     location.requestPermission().then((granted) {
       if (granted == PermissionStatus.granted) {
         _locationSubscription =

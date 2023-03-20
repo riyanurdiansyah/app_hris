@@ -3,7 +3,7 @@ import 'package:app_hris/src/presentation/bloc/auth/auth_bloc.dart';
 import 'package:app_hris/utils/app_color.dart';
 import 'package:app_hris/utils/app_format_text.dart';
 import 'package:app_hris/utils/app_validator.dart';
-import 'package:easy_localization/easy_localization.dart';
+// import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -242,7 +242,7 @@ class _LoginPageState extends State<LoginPage> {
                       }
                     },
                     child: Text(
-                      "signin".tr(),
+                      "Sign In",
                       style: GoogleFonts.poppins(
                         color: Colors.white,
                         fontSize: 18,
